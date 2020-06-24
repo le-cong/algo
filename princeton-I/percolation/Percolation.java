@@ -1,6 +1,6 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
-class Percolation {
+public class Percolation {
 
     private int dimention = -1;
     private int[][] arr = null;
@@ -23,7 +23,9 @@ class Percolation {
     // opens the site (row, col) if it is not open already
     public void open(int row, int col) {
         checkInput(row, col);
-        if (isOpen(row, col)) return;
+        if (isOpen(row, col)) {
+            return;
+        }
 
         arr[row - 1][col - 1] = 1;
         int idx = (row - 1) * dimention + (col - 1);
@@ -85,7 +87,9 @@ class Percolation {
         int cnt = 0;
         for (int i = 1; i <= dimention; i++) {
             for (int j = 1; j <= dimention; j++) {
-                if (isOpen(i, j)) cnt++;
+                if (isOpen(i, j)) {
+                    cnt++;
+                }
             }
         }
         return cnt;
