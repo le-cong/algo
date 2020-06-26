@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c1e4f978-b3bd-4ae1-84e9-9e1170bce808" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.lift/checkstyle-coursera.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.lift/checkstyle-coursera.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Computer Science.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InteractivePercolationVisualizer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Percolation.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Percolation.java" beforeDir="false" afterPath="$PROJECT_DIR$/Percolation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PercolationStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/PercolationStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PercolationVisualizer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/PercolationVisualizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/PercolationVisualizer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTT.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTT.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="DISPLAY_NOTIFICATION_POPUP" value="false" />
+    <option name="CLEAR_OUTPUT_DIRECTORY" value="false" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="SCHEME" value="Project" />
+  </component>
+  <component name="FindBugs-IDEA-Workspace">
+    <analyzeAfterCompile>true</analyzeAfterCompile>
+    <toolWindowToFront>false</toolWindowToFront>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="1dkIt3EVtDkqbnzZTib2gWoM5AN" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="abbreviatePackageNames" value="true" />
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showModules" value="false" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ToolWindowMessages.ShowToolbar" value="false" />
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunManager" selected="Application.PercolationVisualizer">
+    <configuration name="Percolation" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Percolation" />
+      <module name="Algorithms, Part I" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PercolationStats" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="PercolationStats" />
+      <module name="Algorithms, Part I" />
+      <option name="PROGRAM_PARAMETERS" value="16 10" />
+      <method v="2" />
+    </configuration>
+    <configuration name="PercolationVisualizer" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="PercolationVisualizer" />
+      <module name="Algorithms, Part I" />
+      <option name="PROGRAM_PARAMETERS" value="input10.txt" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="done" />
+    <option name="LAST_COMMIT_MESSAGE" value="done" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="288" y="43" key="#Project_Structure" timestamp="1592963957332">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="288" y="43" key="#Project_Structure/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1592963957332" />
+    <state x="538" y="223" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1592964037105">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="538" y="223" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1592964037105" />
+    <state x="0" y="23" width="1600" height="877" key="CommitChangelistDialog2" timestamp="1592975208555">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="0" y="23" width="1600" height="877" key="CommitChangelistDialog2/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1592975208555" />
+    <state x="160" y="100" key="DiffContextDialog" timestamp="1592975119297">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="160" y="100" key="DiffContextDialog/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1592975119297" />
+    <state x="588" y="223" key="FileChooserDialogImpl" timestamp="1593119884779">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="588" y="223" key="FileChooserDialogImpl/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593119884779" />
+    <state width="1558" height="240" key="GridCell.Tab.0.bottom" timestamp="1593148911216">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state width="1558" height="240" key="GridCell.Tab.0.bottom/0.23.1600.877/-1440.144.1440.877@0.23.1600.877" timestamp="1593148911216" />
+    <state width="1558" height="240" key="GridCell.Tab.0.bottom/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593137044908" />
+    <state width="1558" height="240" key="GridCell.Tab.0.center" timestamp="1593148911215">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state width="1558" height="240" key="GridCell.Tab.0.center/0.23.1600.877/-1440.144.1440.877@0.23.1600.877" timestamp="1593148911215" />
+    <state width="1558" height="240" key="GridCell.Tab.0.center/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593137044907" />
+    <state width="1558" height="240" key="GridCell.Tab.0.left" timestamp="1593148911215">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state width="1558" height="240" key="GridCell.Tab.0.left/0.23.1600.877/-1440.144.1440.877@0.23.1600.877" timestamp="1593148911215" />
+    <state width="1558" height="240" key="GridCell.Tab.0.left/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593137044907" />
+    <state width="1558" height="240" key="GridCell.Tab.0.right" timestamp="1593148911215">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state width="1558" height="240" key="GridCell.Tab.0.right/0.23.1600.877/-1440.144.1440.877@0.23.1600.877" timestamp="1593148911215" />
+    <state width="1558" height="240" key="GridCell.Tab.0.right/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593137044907" />
+    <state width="1579" height="297" key="GridCell.Tab.1.bottom" timestamp="1593148911211">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state width="1579" height="297" key="GridCell.Tab.1.bottom/0.23.1600.877/-1440.144.1440.877@0.23.1600.877" timestamp="1593148911211" />
+    <state width="1579" height="297" key="GridCell.Tab.1.bottom/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593118337727" />
+    <state width="1579" height="297" key="GridCell.Tab.1.center" timestamp="1593148911210">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state width="1579" height="297" key="GridCell.Tab.1.center/0.23.1600.877/-1440.144.1440.877@0.23.1600.877" timestamp="1593148911210" />
+    <state width="1579" height="297" key="GridCell.Tab.1.center/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593118337726" />
+    <state width="1579" height="297" key="GridCell.Tab.1.left" timestamp="1593148911210">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state width="1579" height="297" key="GridCell.Tab.1.left/0.23.1600.877/-1440.144.1440.877@0.23.1600.877" timestamp="1593148911210" />
+    <state width="1579" height="297" key="GridCell.Tab.1.left/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593118337725" />
+    <state width="1579" height="297" key="GridCell.Tab.1.right" timestamp="1593148911211">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state width="1579" height="297" key="GridCell.Tab.1.right/0.23.1600.877/-1440.144.1440.877@0.23.1600.877" timestamp="1593148911211" />
+    <state width="1579" height="297" key="GridCell.Tab.1.right/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593118337726" />
+    <state x="288" y="43" key="SettingsEditor" timestamp="1593138820685">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="288" y="43" key="SettingsEditor/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593138820685" />
+    <state x="400" y="201" key="Vcs.Push.Dialog.v2" timestamp="1592975258727">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="400" y="201" key="Vcs.Push.Dialog.v2/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1592975258727" />
+    <state x="501" y="94" width="598" height="735" key="find.popup" timestamp="1593120301620">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="501" y="94" width="598" height="735" key="find.popup/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593120301620" />
+    <state x="466" y="213" width="670" height="676" key="search.everywhere.popup" timestamp="1593119421619">
+      <screen x="0" y="23" width="1600" height="877" />
+    </state>
+    <state x="466" y="213" width="670" height="676" key="search.everywhere.popup/1600.23.1600.877/0.23.1600.877/-1200.-721.1200.1897@0.23.1600.877" timestamp="1593119421619" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="perc.isOpen(9,1)" language="JAVA" />
+        <watch expression="perc.isFull(9,1)" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

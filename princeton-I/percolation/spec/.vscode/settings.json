@@ -1,0 +1,14 @@
+{
+  "java.project.referencedLibraries": {
+    "include": [
+      "lib/**/*.jar",
+      "/Users/lcong/workspace/algo/princeton-I/lib/algs4.jar"
+    ],
+    "exclude": [
+      "/Users/lcong/workspace/algo/princeton-I/lib/checkstyle-lift.jar"
+    ]
+  },
+  "java.checkstyle.configuration": "${workspaceFolder}/.lift/checkstyle-coursera.xml",
+  "java.checkstyle.version": "8.33",
+  "java.dependency.packagePresentation": "flat"
+}
