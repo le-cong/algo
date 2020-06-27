@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.31">
-<file name="PercolationVisualizer.java">
-</file>
-<file name="InteractivePercolationVisualizer.java">
-</file>
 <file name="Percolation.java">
-</file>
-<file name="PercolationStats.java">
+<error line="1" column="8" severity="warning" message="Unused import statement for &apos;edu.princeton.cs.algs4.StdOut&apos;." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 </file>
 </checkstyle>

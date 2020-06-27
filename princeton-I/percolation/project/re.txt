@@ -6,26 +6,26 @@ personalized feedback on your submission at https://mooc.codepost.io.
 
 ASSESSMENT SUMMARY
 
-Compilation:  FAILED (0 errors, 2 warnings)
+Compilation:  PASSED
 API:          PASSED
 
 Spotbugs:     PASSED
-PMD:          FAILED (7 warnings)
-Checkstyle:   FAILED (0 errors, 2 warnings)
+PMD:          FAILED (9 warnings)
+Checkstyle:   FAILED (0 errors, 3 warnings)
 
 Correctness:  38/38 tests passed
-Memory:       4/8 tests passed
-Timing:       20/20 tests passed
+Memory:       6/8 tests passed
+Timing:       4/20 tests passed
 
-Aggregate score: 90.00%
+Aggregate score: 81.50%
 [Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-3.0K Jun 26 21:54 Percolation.java
-1.8K Jun 26 21:54 PercolationStats.java
+3.2K Jun 26 22:42 Percolation.java
+1.8K Jun 26 22:42 PercolationStats.java
 
 
 ********************************************************************************
@@ -35,13 +35,6 @@ The following files were submitted:
 
 % javac Percolation.java
 *-----------------------------------------------------------
-Percolation.java:108: warning: [cast] redundant cast to double
-    StdOut.printf("[%.2f, %f]", (double) 0.2, (double) 0.3);
-                                ^
-Percolation.java:108: warning: [cast] redundant cast to double
-    StdOut.printf("[%.2f, %f]", (double) 0.2, (double) 0.3);
-                                              ^
-2 warnings
 
 % javac PercolationStats.java
 *-----------------------------------------------------------
@@ -66,6 +59,7 @@ PercolationStats:
 
 % spotbugs *.class
 *-----------------------------------------------------------
+L D UCF_USELESS_CONTROL_FLOW UCF: Contains a useless control-flow statement, which leads to same result regardless of whether branch is taken.  At Percolation.java:[line 72]
 
 
 ================================================================
@@ -73,14 +67,16 @@ PercolationStats:
 
 % pmd .
 *-----------------------------------------------------------
-Percolation.java:9: The private instance (or static) variable 'uf' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
 Percolation.java:10: The private instance (or static) variable 'ufF' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
 Percolation.java:11: The private instance (or static) variable 'virtualTopSiteIndex' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+Percolation.java:12: Avoid unused private instance (or static) variables, such as 'virtualBottomSiteIndex'. [UnusedPrivateField]
+Percolation.java:12: Can you replace the instance (or static) variable 'virtualBottomSiteIndex' with a local variable? [SingularField]
 Percolation.java:12: The private instance (or static) variable 'virtualBottomSiteIndex' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
 Percolation.java:13: The private instance (or static) variable 'virtualTopSiteIndexF' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+Percolation.java:72: The 'if' or 'else' clause appears to serve no purpose because its body is empty. [EmptyIfStmt]
 PercolationStats.java:7: The private instance (or static) variable 'history' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
 PercolationStats.java:8: The private instance (or static) variable 'trails' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
-PMD ends with 7 warnings.
+PMD ends with 9 warnings.
 
 
 ================================================================
@@ -88,9 +84,12 @@ PMD ends with 7 warnings.
 
 % checkstyle *.java
 *-----------------------------------------------------------
+[WARN] Percolation.java:1:8: Unused import statement for 'edu.princeton.cs.algs4.StdOut'. [UnusedImports]
+Checkstyle ends with 0 errors and 1 warning.
 
 % custom checkstyle checks for Percolation.java
 *-----------------------------------------------------------
+[INFO] Percolation.java:104: Using a loop in this method might be a performance bug. [Performance]
 [WARN] Percolation.java:7:11: Can you use the type 'boolean[][]' instead of 'int[][]'? [Design]
 Checkstyle ends with 0 errors and 1 warning.
 
@@ -319,14 +318,14 @@ Running 17 total tests.
 
 Test 1: check formatting of output of main()
   % java-algs4 PercolationStats 20 10
-  mean=0.5712499999999999
-  stddev=0.04637183651983413
-  95% confidence interval = [0.542508, 0.599992]
+  mean=0.609
+  stddev=0.034262061947420645
+  95% confidence interval = [0.587764, 0.630236]
 
   % java-algs4 PercolationStats 200 100
-  mean=0.5917060000000002
-  stddev=0.010219581076234838
-  95% confidence interval = [0.589703, 0.593709]
+  mean=0.5913612500000001
+  stddev=0.010883624163708923
+  95% confidence interval = [0.589228, 0.593494]
 
 ==> passed
 
@@ -525,11 +524,11 @@ Test 4: Call PercolationStats constructor and instance methods with trials = 3
 
          n  seconds log ratio
      ------------------------
-       724     0.17       2.8
-      1024     0.41       2.5
-      1448     0.93       2.4
-      2048     2.02       2.2
-      2896     4.83       2.5
+       724     0.14       2.3
+      1024     0.32       2.5
+      1448     0.87       2.9
+      2048     2.06       2.5
+      2896     4.93       2.5
 ==> passed
 
 
@@ -552,22 +551,17 @@ Test 1a-1d: check that total memory <= 17 n^2 + 128 n + 1024 bytes
 
                  n        bytes
 --------------------------------------------
-=> FAILED       64        84280   (1.1x)
-=> FAILED      256      1319224   (1.1x)
-=> FAILED      512      5259576   (1.2x)
-=> FAILED     1024     21004600   (1.2x)
-==> 0/4 tests passed
+=> passed       64        51392         
+=> passed      256       794816         
+
+    
+        ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        OperationCountLimitExceededException
+        Number of calls to methods in WeightedQuickUnionUF exceeds limit: 100000000
+        ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-Estimated student memory = 20.00 n^2 + 32.00 n + 312.00   (R^2 = 1.000)
-
-
-Test 2 (bonus): check that total memory <= 11 n^2 + 128 n + 1024 bytes
-   -  failed memory test for n = 64
-==> FAILED
-
-
-Total: 0/4 tests passed!
+Total: 2/4 tests passed!
 
 
 ================================================================
@@ -589,14 +583,19 @@ Test 1a-1e: Creates an n-by-n percolation system; open sites at random until
                                        2 * connected()
                  n       union()              + find()        constructor
 -----------------------------------------------------------------------------------
-=> passed       16          318                   286                   2         
-=> passed       32         1253                  1130                   2         
-=> passed       64         5330                  4662                   2         
-=> passed      128        23576                 19604                   2         
-=> passed      256        93042                 78078                   2         
-=> passed      512       365981                309372                   2         
-=> passed     1024      1458460               1236238                   2         
-==> 7/7 tests passed
+=> FAILED       16          189                  5030   (2.7x)          1         
+=> FAILED       32          704                 38626   (5.2x)          1         
+=> FAILED       64         2678                299572  (10.2x)          1         
+=> FAILED      128        10606               2379026  (20.2x)          1         
+=> FAILED      256        43092              19243340  (40.8x)          1         
+
+    
+        ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        OperationCountLimitExceededException
+        Number of calls to methods in WeightedQuickUnionUF exceeds limit: 100000000
+        ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+==> 0/7 tests passed
 
 
 If one of the values in the table violates the performance limits
@@ -613,14 +612,14 @@ Tests 2a-2f: Check whether the number of calls to union(), connected(), and find
 
                  n     per open()      per isOpen()    per isFull()    per percolates() 
 ---------------------------------------------------------------------------------------------
-=> passed       16        8               0               2               2         
-=> passed       32        8               0               2               2         
-=> passed       64        8               0               2               2         
-=> passed      128        8               0               2               2         
-=> passed      256        8               0               2               2         
-=> passed      512        8               0               2               2         
-=> passed     1024        8               0               2               2         
-==> 7/7 tests passed
+=> FAILED       16        4               0               2              32   (1.3x)
+=> FAILED       32        4               0               2              64   (2.7x)
+=> FAILED       64        4               0               2             128   (5.3x)
+=> FAILED      128        4               0               2             256  (10.7x)
+=> FAILED      256        4               0               2             512  (21.3x)
+=> FAILED      512        4               0               2            1024  (42.7x)
+=> FAILED     1024        4               0               2            2048  (85.3x)
+==> 0/7 tests passed
 
 
 
@@ -636,12 +635,15 @@ Test 3: Create an n-by-n percolation system; interleave calls to percolates()
                         log   union-find     log
          n  seconds   ratio   operations   ratio
      -------------------------------------------
-      1024     0.12     2.3      4207216     2.0
-      1448     0.36     3.3      8405418     2.0
-      2048     0.87     2.5     16900376     2.0
-      2896     1.99     2.4     33645636     2.0
-      4096     4.17     2.1     67045946     2.0
-==> passed
+       362     0.16     2.9     56168236     3.0
+
+    
+        ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        OperationCountLimitExceededException
+        Number of calls to methods in WeightedQuickUnionUF exceeds limit: 100000000
+        ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+==> FAILED
 
 
 
@@ -653,17 +655,21 @@ Test 4: Create an n-by-n percolation system; interleave calls to open(),
                         log   union-find     log
          n  seconds   ratio   operations   ratio
      -------------------------------------------
-      1024     0.15     2.4      5447388     2.0
-      1448     0.42     2.9     10911358     2.0
-      2048     0.97     2.4     21606954     2.0
-      2896     2.19     2.3     43308252     2.0
-      4096     4.60     2.1     87207256     2.0
-==> passed
+       362     0.15     2.9     55677674     2.9
+
+    
+        ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+        OperationCountLimitExceededException
+        Number of calls to methods in WeightedQuickUnionUF exceeds limit: 100000000
+        ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+==> FAILED
 
 
-Total: 16/16 tests passed!
+Total: 0/16 tests passed!
 
 
 ================================================================
+
 
 
