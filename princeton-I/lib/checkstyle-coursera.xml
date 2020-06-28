@@ -13,11 +13,11 @@
 
     <!-- suppress certain checks on a file-by-file basis -->
     <!-- the property "suppresions" should be passed as a -D command-line option to Java
+     -->
     <module name="SuppressionFilter">
         <property name="file" value="/Users/lcong/workspace/algo/princeton-I/lib/checkstyle-suppressions.xml"/>
         <property name="optional" value="false"/>
     </module>
-     -->
 
     <!-- properties for JVM -->
     <property name="localeCountry" value="US"/>
