@@ -7,8 +7,8 @@ import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
-  private static final int initialSize = 8;
-  private Object[] items = new Object[initialSize];
+  private static final int INITIAL_SIZE = 8;
+  private Object[] items = new Object[INITIAL_SIZE];
   private int size = 0;
 
   // construct an empty randomized queue
@@ -47,7 +47,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     items[size - 1] = null;
     
     size--;
-    if (size <= items.length / 4 && size > initialSize) {
+    if (size <= items.length / 4 && size > INITIAL_SIZE) {
       items = Arrays.copyOf(items, items.length / 2);
     }
 
@@ -69,31 +69,23 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   // return an independent iterator over items in random order
   public Iterator<Item> iterator() {
     return new Iterator<Item>() {
-
-      int _size = size;
-      Object[] _items = Arrays.copyOf(items, size);
-
-      @Override
+      int itSize = size;
+      Object[] itItems = Arrays.copyOf(items, size);
       public boolean hasNext() {
-        return _size > 0;
+        return itSize > 0;
       }
-
-      @Override
       public Item next() {
         if (!hasNext()) {
           throw new NoSuchElementException();
         }
-        int idx = StdRandom.uniform(_size);
-        Item item = (Item) _items[idx];
-
-        _items[idx] = _items[_size - 1];
-        _items[_size - 1] = null;
-        _size--;
-
+        int idx = StdRandom.uniform(itSize);
+        Item item = (Item) itItems[idx];
+        itItems[idx] = itItems[itSize - 1];
+        itItems[itSize - 1] = null;
+        itSize--;
         return item;
       }
     };
-
   }
 
   // unit testing (required)

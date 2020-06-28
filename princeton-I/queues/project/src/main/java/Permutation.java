@@ -3,13 +3,14 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class Permutation {
   public static void main(String[] args) {
-    int n=new Integer(args[0]);
-    String [] items = StdIn.readAllStrings();
+    int n = Integer.parseInt(args[0]);
+
     RandomizedQueue<String> ranq = new RandomizedQueue<>();
-    for(String s: items) {
-      ranq.enqueue(s);
+    while(!StdIn.isEmpty()) {
+      String item = StdIn.readString();
+      ranq.enqueue(item);
     }
-    for(int i=0;i<n; i++) {
+    for (int i = 0; i < n; i++) {
       if (ranq.isEmpty()) {
         break;
       }
