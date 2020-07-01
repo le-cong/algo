@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
-  private static final int INITIAL_SIZE = 8;
+  private static final int INITIAL_SIZE = 4;
   private Object[] items = new Object[INITIAL_SIZE];
   private int size = 0;
 
@@ -27,6 +27,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
   // add the item
   public void enqueue(Item item) {
+    if (item == null) {
+      throw new IllegalArgumentException();
+    }
     if (size == items.length) {
       items = Arrays.copyOf(items, size * 2);
     }
@@ -45,7 +48,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     items[randomIdx] = items[size - 1];
     items[size - 1] = null;
-    
+
     size--;
     if (size <= items.length / 4 && size > INITIAL_SIZE) {
       items = Arrays.copyOf(items, items.length / 2);
@@ -71,9 +74,11 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     return new Iterator<Item>() {
       int itSize = size;
       Object[] itItems = Arrays.copyOf(items, size);
+
       public boolean hasNext() {
         return itSize > 0;
       }
+
       public Item next() {
         if (!hasNext()) {
           throw new NoSuchElementException();

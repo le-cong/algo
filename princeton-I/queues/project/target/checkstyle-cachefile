@@ -1,5 +1,5 @@
-#Sat Jun 27 21:58:47 EDT 2020
+#Sat Jun 27 22:09:39 EDT 2020
 configuration*?=9D8004571259ADD3A7ADC12087BF7743191CD443
 module-resource*?\:/Users/lcong/workspace/algo/princeton-I/lib/checkstyle-suppressions.xml=56330E359A73609B6B8A83D7A80A4C05B0BE76FD
 /Users/lcong/workspace/algo/princeton-I/queues/project/src/main/java/Deque.java=1593306710017
-/Users/lcong/workspace/algo/princeton-I/queues/project/src/main/java/RandomizedQueue.java=1593308214583
+/Users/lcong/workspace/algo/princeton-I/queues/project/src/main/java/RandomizedQueue.java=1593310160627

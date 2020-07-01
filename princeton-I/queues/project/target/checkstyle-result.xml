@@ -3,4 +3,6 @@
 <file name="Permutation.java">
 <error line="9" column="5" severity="warning" message="&apos;while&apos; is not followed by whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"/>
 </file>
+<file name="RandomizedQueue.java">
+</file>
 </checkstyle>
