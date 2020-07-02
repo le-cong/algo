@@ -2,27 +2,28 @@ See the Assessment Guide for information on how to interpret this report.
 
 ASSESSMENT SUMMARY
 
-Compilation:  PASSED (0 errors, 3 warnings)
+Compilation:  PASSED
 API:          PASSED
 
 Spotbugs:     PASSED
-PMD:          PASSED
-Checkstyle:   FAILED (0 errors, 1 warning)
+PMD:          FAILED (2 warnings)
+Checkstyle:   FAILED (0 errors, 4 warnings)
 
-Correctness:  44/45 tests passed
-Memory:       124/133 tests passed
-Timing:       193/193 tests passed
+Correctness:  41/41 tests passed
+Memory:       1/1 tests passed
+Timing:       41/41 tests passed
 
-Aggregate score: 97.99%
+Aggregate score: 100.00%
 [Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-3.9K Jun 28 01:55 Deque.java
- 509 Jun 28 01:55 Permutation.java
-3.5K Jun 28 01:55 RandomizedQueue.java
+3.2K Jul  2 22:14 BruteCollinearPoints.java
+4.9K Jul  2 22:14 FastCollinearPoints.java
+1.9K Jul  2 22:14 LineSegment.java
+5.0K Jul  2 22:14 Point.java
 
 
 ********************************************************************************
@@ -30,35 +31,16 @@ The following files were submitted:
 ********************************************************************************
 
 
-% javac Deque.java
+% javac Point.java
 *-----------------------------------------------------------
 
-% javac RandomizedQueue.java
+% javac LineSegment.java
 *-----------------------------------------------------------
-RandomizedQueue.java:44: warning: [unchecked] unchecked cast
-    Item item = (Item) items[randomIdx];
-                            ^
-  required: Item
-  found:    Object
-  where Item is a type-variable:
-    Item extends Object declared in class RandomizedQueue
-RandomizedQueue.java:64: warning: [unchecked] unchecked cast
-    Item item = (Item) items[randomIdx];
-                            ^
-  required: Item
-  found:    Object
-  where Item is a type-variable:
-    Item extends Object declared in class RandomizedQueue
-RandomizedQueue.java:82: warning: [unchecked] unchecked cast
-        Item item = (Item) itItems[idx];
-                                  ^
-  required: Item
-  found:    Object
-  where Item is a type-variable:
-    Item extends Object declared in class RandomizedQueue
-3 warnings
 
-% javac Permutation.java
+% javac BruteCollinearPoints.java
+*-----------------------------------------------------------
+
+% javac FastCollinearPoints.java
 *-----------------------------------------------------------
 
 
@@ -67,11 +49,11 @@ RandomizedQueue.java:82: warning: [unchecked] unchecked cast
 
 Checking the APIs of your programs.
 *-----------------------------------------------------------
-Deque:
+Point:
 
-RandomizedQueue:
+BruteCollinearPoints:
 
-Permutation:
+FastCollinearPoints:
 
 ================================================================
 
@@ -83,6 +65,14 @@ Permutation:
 
 % spotbugs *.class
 *-----------------------------------------------------------
+M C SA_LOCAL_SELF_COMPARISON SA: Nonsensical comparison of 'compareTo' with itself. Are you sure this is what you intended?  At Point.java:[line 146]
+M B NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT NP: The 'equals()' method does not return 'false' if the argument is null.  At BruteCollinearPoints.java:[lines 27-28]
+M B BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS BC: The 'equals()' method for 'BruteCollinearPoints$Line' assumes the argument is of type 'BruteCollinearPoints$Line'; it should be of type 'java.lang.Object'.  At BruteCollinearPoints.java:[line 27]
+M B HE_EQUALS_USE_HASHCODE HE: The class overrides 'equals()' but not 'hashCode()'. As a result, 'BruteCollinearPoints$Line' will not work with 'java.util.HashMap' or 'java.util.HashSet'.  At BruteCollinearPoints.java:[lines 27-28]
+M B NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT NP: The 'equals()' method does not return 'false' if the argument is null.  At FastCollinearPoints.java:[lines 29-30]
+M B BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS BC: The 'equals()' method for 'FastCollinearPoints$Line' assumes the argument is of type 'FastCollinearPoints$Line'; it should be of type 'java.lang.Object'.  At FastCollinearPoints.java:[line 29]
+M B HE_EQUALS_USE_HASHCODE HE: The class overrides 'equals()' but not 'hashCode()'. As a result, 'FastCollinearPoints$Line' will not work with 'java.util.HashMap' or 'java.util.HashSet'.  At FastCollinearPoints.java:[lines 29-30]
+H D DLS_DEAD_LOCAL_STORE DLS: Assigns a value to the local variable 'watch' but that value is never used.  At FastCollinearPoints.java:[line 60]
 
 
 ================================================================
@@ -90,6 +80,9 @@ Permutation:
 
 % pmd .
 *-----------------------------------------------------------
+BruteCollinearPoints.java:52: Array initialization can be written shorter [UseShortArrayInitializer]
+FastCollinearPoints.java:60: Avoid unused local variables, such as 'watch'. [UnusedLocalVariable]
+PMD ends with 2 warnings.
 
 
 ================================================================
@@ -97,17 +90,22 @@ Permutation:
 
 % checkstyle *.java
 *-----------------------------------------------------------
-[WARN] Permutation.java:9:5: 'while' is not followed by whitespace. [WhitespaceAround]
+[WARN] BruteCollinearPoints.java:49:20: Do not use the letter 'l' as a local variable name. It is hard to distinguish from the number '1'. [LocalVariableName]
 Checkstyle ends with 0 errors and 1 warning.
 
-% custom checkstyle checks for Deque.java
+% custom checkstyle checks for Point.java
 *-----------------------------------------------------------
 
-% custom checkstyle checks for RandomizedQueue.java
+% custom checkstyle checks for BruteCollinearPoints.java
 *-----------------------------------------------------------
+[WARN] BruteCollinearPoints.java:8:1: Defining a nested class in this program suggests poor design. [Design]
+Checkstyle ends with 0 errors and 1 warning.
 
-% custom checkstyle checks for Permutation.java
+% custom checkstyle checks for FastCollinearPoints.java
 *-----------------------------------------------------------
+[WARN] FastCollinearPoints.java:10:1: Defining a nested class in this program suggests poor design. [Design]
+[WARN] FastCollinearPoints.java:34:32: Using interface inheritance suggests poor design in this program. [Design]
+Checkstyle ends with 0 errors and 2 warnings.
 
 
 ================================================================
@@ -117,125 +115,187 @@ Checkstyle ends with 0 errors and 1 warning.
 *  TESTING CORRECTNESS
 ********************************************************************************
 
-Testing correctness of Deque
+Testing correctness of Point
+*-----------------------------------------------------------
+Running 3 total tests.
+
+Test 1: p.slopeTo(q)
+  * positive infinite slope, where p and q have coordinates in [0, 500)
+  * positive infinite slope, where p and q have coordinates in [0, 32768)
+  * negative infinite slope, where p and q have coordinates in [0, 500)
+  * negative infinite slope, where p and q have coordinates in [0, 32768)
+  * positive zero     slope, where p and q have coordinates in [0, 500)
+  * positive zero     slope, where p and q have coordinates in [0, 32768)
+  * symmetric for random points p and q with coordinates in [0, 500)
+  * symmetric for random points p and q with coordinates in [0, 32768)
+  * transitive for random points p, q, and r with coordinates in [0, 500)
+  * transitive for random points p, q, and r with coordinates in [0, 32768)
+  * slopeTo(), where p and q have coordinates in [0, 500)
+  * slopeTo(), where p and q have coordinates in [0, 32768)
+  * slopeTo(), where p and q have coordinates in [0, 10)
+  * throw a java.lang.NullPointerException if argument is null
+==> passed
+
+Test 2: p.compareTo(q)
+  * reflexive, where p and q have coordinates in [0, 500)
+  * reflexive, where p and q have coordinates in [0, 32768)
+  * antisymmetric, where p and q have coordinates in [0, 500)
+  * antisymmetric, where p and q have coordinates in [0, 32768)
+  * transitive, where p, q, and r have coordinates in [0, 500)
+  * transitive, where p, q, and r have coordinates in [0, 32768)
+  * sign of compareTo(), where p and q have coordinates in [0, 500)
+  * sign of compareTo(), where p and q have coordinates in [0, 32768)
+  * sign of compareTo(), where p and q have coordinates in [0, 10)
+  * throw java.lang.NullPointerException exception if argument is null
+==> passed
+
+Test 3: p.slopeOrder().compare(q, r)
+  * reflexive, where p and q have coordinates in [0, 500)
+  * reflexive, where p and q have coordinates in [0, 32768)
+  * antisymmetric, where p, q, and r have coordinates in [0, 500)
+  * antisymmetric, where p, q, and r have coordinates in [0, 32768)
+  * transitive, where p, q, r, and s have coordinates in [0, 500)
+  * transitive, where p, q, r, and s have coordinates in [0, 32768)
+  * sign of compare(), where p, q, and r have coordinates in [0, 500)
+  * sign of compare(), where p, q, and r have coordinates in [0, 32768)
+  * sign of compare(), where p, q, and r have coordinates in [0, 10)
+  * throw java.lang.NullPointerException if either argument is null
+==> passed
+
+
+Total: 3/3 tests passed!
+
+
+================================================================
+********************************************************************************
+*  TESTING CORRECTNESS (substituting reference Point and LineSegment)
+********************************************************************************
+
+Testing correctness of BruteCollinearPoints
 *-----------------------------------------------------------
 Running 17 total tests.
 
-Tests 1-6 make random calls to addFirst(), addLast(), removeFirst(),
-removeLast(), isEmpty(), and size(). The probabilities of each
-operation are (p1, p2, p3, p4, p5, p6), respectively.
+The inputs satisfy the following conditions:
+  - no duplicate points
+  - no 5 (or more) points are collinear
+  - all x- and y-coordinates between 0 and 32,767
 
-Test 1: check random calls to addFirst(), addLast(), and size()
-  *    5 random calls (0.4, 0.4, 0.0, 0.0, 0.0, 0.2)
-  *   50 random calls (0.4, 0.4, 0.0, 0.0, 0.0, 0.2)
-  *  500 random calls (0.4, 0.4, 0.0, 0.0, 0.0, 0.2)
-  * 1000 random calls (0.4, 0.4, 0.0, 0.0, 0.0, 0.2)
+Test 1: points from a file
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
 ==> passed
 
-Test 2: check random calls to addFirst(), removeFirst(), and isEmpty()
-  *    5 random calls (0.8, 0.0, 0.1, 0.0, 0.1, 0.0)
-  *   50 random calls (0.8, 0.0, 0.1, 0.0, 0.1, 0.0)
-  *  500 random calls (0.8, 0.0, 0.1, 0.0, 0.1, 0.0)
-  * 1000 random calls (0.8, 0.0, 0.1, 0.0, 0.1, 0.0)
-  *    5 random calls (0.1, 0.0, 0.8, 0.0, 0.1, 0.0)
-  *   50 random calls (0.1, 0.0, 0.8, 0.0, 0.1, 0.0)
-  *  500 random calls (0.1, 0.0, 0.8, 0.0, 0.1, 0.0)
-  * 1000 random calls (0.1, 0.0, 0.8, 0.0, 0.1, 0.0)
+Test 2a: points from a file with horizontal line segments
+  * filename = horizontal5.txt
+  * filename = horizontal25.txt
 ==> passed
 
-Test 3: check random calls to addFirst(), removeLast(), and isEmpty()
-  *    5 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0)
-  *   50 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0)
-  *  500 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0)
-  * 1000 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0)
-  *    5 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0)
-  *   50 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0)
-  *  500 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0)
-  * 1000 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0)
+Test 2b: random horizontal line segments
+  *  1 random horizontal line segment
+  *  5 random horizontal line segments
+  * 10 random horizontal line segments
+  * 15 random horizontal line segments
 ==> passed
 
-Test 4: check random calls to addLast(), removeLast(), and isEmpty()
-  *    5 random calls (0.0, 0.8, 0.0, 0.1, 0.1, 0.0)
-  *   50 random calls (0.0, 0.8, 0.0, 0.1, 0.1, 0.0)
-  *  500 random calls (0.0, 0.8, 0.0, 0.1, 0.1, 0.0)
-  * 1000 random calls (0.0, 0.8, 0.0, 0.1, 0.1, 0.0)
-  *    5 random calls (0.0, 0.1, 0.0, 0.8, 0.1, 0.0)
-  *   50 random calls (0.0, 0.1, 0.0, 0.8, 0.1, 0.0)
-  *  500 random calls (0.0, 0.1, 0.0, 0.8, 0.1, 0.0)
-  * 1000 random calls (0.0, 0.1, 0.0, 0.8, 0.1, 0.0)
+Test 3a: points from a file with vertical line segments
+  * filename = vertical5.txt
+  * filename = vertical25.txt
 ==> passed
 
-Test 5: check random calls to addLast(), removeFirst(), and isEmpty()
-  *    5 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0)
-  *   50 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0)
-  *  500 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0)
-  * 1000 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0)
-  *    5 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0)
-  *   50 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0)
-  *  500 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0)
-  * 1000 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0)
+Test 3b: random vertical line segments
+  *  1 random vertical line segment
+  *  5 random vertical line segments
+  * 10 random vertical line segments
+  * 15 random vertical line segments
 ==> passed
 
-Test 6: check random calls to addFirst(), addLast(), removeFirst(),
-        removeLast(), isEmpty(), and size()
-  *    5 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
-  *   50 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
-  *  500 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
-  * 1000 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
-  *    5 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1)
-  *   50 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1)
-  *  500 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1)
-  * 1000 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1)
+Test 4a: points from a file with no line segments
+  * filename = random23.txt
+  * filename = random38.txt
 ==> passed
 
-Test 7: check removeFirst() and removeLast() from an empty deque
-  * removeFirst()
-  * removeLast()
+Test 4b: random points with no line segments
+  *  5 random points
+  * 10 random points
+  * 20 random points
+  * 50 random points
 ==> passed
 
-Test 8: check whether two Deque objects can be created at the same time
-  * n = 10
-  * n = 1000
+Test 5: points from a file with fewer than 4 points
+  * filename = input1.txt
+  * filename = input2.txt
+  * filename = input3.txt
 ==> passed
 
-Test 9: check iterator() after n calls to addFirst()
-  * n = 10
-  * n = 50
+Test 6: check for dependence on either compareTo() or compare()
+        returning { -1, +1, 0 } instead of { negative integer,
+        positive integer, zero }
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
 ==> passed
 
-Test 10: check iterator() after each of m intermixed calls to
-         addFirst(), addLast(), removeFirst(), and removeLast()
-  * m = 20
-  * m = 50
-  * m = 100
-  * m = 1000
+Test 7: check for fragile dependence on return value of toString()
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
 ==> passed
 
-Test 11: create two nested iterators to same deque
-  * n = 10
-  * n = 50
+Test 8: random line segments, none vertical or horizontal
+  *  1 random line segment
+  *  5 random line segments
+  * 10 random line segments
+  * 15 random line segments
 ==> passed
 
-Test 12: create two parallel iterators to same deque
+Test 9: random line segments
+  *  1 random line segment
+  *  5 random line segments
+  * 10 random line segments
+  * 15 random line segments
 ==> passed
 
-Test 13: create an iterator and check calls to next() and hasNext()
-  * 10 consecutive calls to hasNext() on a deque of size 10
-  * 10 consecutive calls to next() on a deque of size 10
-  * 50 random intermixed calls to next() and hasNext() on a deque of size 10
-  * 1000 random intermixed calls to next() and hasNext() on a deque of size 100
+Test 10: check that data type is immutable by testing whether each method
+         returns the same value, regardless of any intervening operations
+  * input8.txt
+  * equidistant.txt
 ==> passed
 
-Test 14: create Deque objects of different parameterized types
+Test 11: check that data type does not mutate the constructor argument
+  * input8.txt
+  * equidistant.txt
 ==> passed
 
-Test 15: call addFirst() and addLast() with null argument
+Test 12: numberOfSegments() is consistent with segments()
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = horizontal5.txt
+  * filename = vertical5.txt
+  * filename = random23.txt
 ==> passed
 
-Test 16: check that remove() and next() throw the specified exceptions in iterator()
+Test 13: throws an exception if either the constructor argument is null
+         or any entry in array is null
+  * argument is null
+  * Point[] of length 10, number of null entries = 1
+  * Point[] of length 10, number of null entries = 10
+  * Point[] of length 4, number of null entries = 1
+  * Point[] of length 3, number of null entries = 1
+  * Point[] of length 2, number of null entries = 1
+  * Point[] of length 1, number of null entries = 1
 ==> passed
 
-Test 17: call iterator() when the deque is empty
+Test 14: check that the constructor throws an exception if duplicate points
+  * 50 points
+  * 25 points
+  * 5 points
+  * 4 points
+  * 3 points
+  * 2 points
 ==> passed
 
 
@@ -243,723 +303,198 @@ Total: 17/17 tests passed!
 
 
 ================================================================
-Testing correctness of RandomizedQueue
+Testing correctness of FastCollinearPoints
 *-----------------------------------------------------------
-Running 19 total tests.
+Running 21 total tests.
 
-Tests 1-4 make random calls to enqueue(), dequeue(), sample(),
-isEmpty(), and size(). The probabilities of each operation are
-(p1, p2, p3, p4, p5), respectively.
+The inputs satisfy the following conditions:
+  - no duplicate points
+  - all x- and y-coordinates between 0 and 32,767
 
-Test 1: check random calls to enqueue() and size()
-  *    5 random calls (0.8, 0.0, 0.0, 0.0, 0.2)
-  *   50 random calls (0.8, 0.0, 0.0, 0.0, 0.2)
-  *  500 random calls (0.8, 0.0, 0.0, 0.0, 0.2)
-  * 1000 random calls (0.8, 0.0, 0.0, 0.0, 0.2)
+Test 1: points from a file
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = input299.txt
 ==> passed
 
-Test 2: check random calls to enqueue() and dequeue()
-  *    5 random calls (0.7, 0.1, 0.0, 0.1, 0.1)
-  *   50 random calls (0.7, 0.1, 0.0, 0.1, 0.1)
-  *  500 random calls (0.7, 0.1, 0.0, 0.1, 0.1)
-  * 1000 random calls (0.7, 0.1, 0.0, 0.1, 0.1)
-  *    5 random calls (0.1, 0.7, 0.0, 0.1, 0.1)
-  *   50 random calls (0.1, 0.7, 0.0, 0.1, 0.1)
-  *  500 random calls (0.1, 0.7, 0.0, 0.1, 0.1)
-  * 1000 random calls (0.1, 0.7, 0.0, 0.1, 0.1)
+Test 2a: points from a file with horizontal line segments
+  * filename = horizontal5.txt
+  * filename = horizontal25.txt
+  * filename = horizontal50.txt
+  * filename = horizontal75.txt
+  * filename = horizontal100.txt
 ==> passed
 
-Test 3: check random calls to enqueue(), sample(), and size()
-  *    5 random calls (0.8, 0.0, 0.1, 0.0, 0.1)
-  *   50 random calls (0.8, 0.0, 0.1, 0.0, 0.1)
-  *  500 random calls (0.8, 0.0, 0.1, 0.0, 0.1)
-  * 1000 random calls (0.8, 0.0, 0.1, 0.0, 0.1)
-  *    5 random calls (0.1, 0.0, 0.8, 0.0, 0.1)
-  *   50 random calls (0.1, 0.0, 0.8, 0.0, 0.1)
-  *  500 random calls (0.1, 0.0, 0.8, 0.0, 0.1)
-  * 1000 random calls (0.1, 0.0, 0.8, 0.0, 0.1)
+Test 2b: random horizontal line segments
+  *  1 random horizontal line segment
+  *  5 random horizontal line segments
+  * 10 random horizontal line segments
+  * 15 random horizontal line segments
 ==> passed
 
-Test 4: check random calls to enqueue(), dequeue(), sample(), isEmpty(), and size()
-  *    5 random calls (0.6, 0.1, 0.1, 0.1, 0.1)
-  *   50 random calls (0.6, 0.1, 0.1, 0.1, 0.1)
-  *  500 random calls (0.6, 0.1, 0.1, 0.1, 0.1)
-  * 1000 random calls (0.6, 0.1, 0.1, 0.1, 0.1)
-  *    5 random calls (0.1, 0.6, 0.1, 0.1, 0.1)
-  *   50 random calls (0.1, 0.6, 0.1, 0.1, 0.1)
-  *  500 random calls (0.1, 0.6, 0.1, 0.1, 0.1)
-  * 1000 random calls (0.1, 0.6, 0.1, 0.1, 0.1)
+Test 3a: points from a file with vertical line segments
+  * filename = vertical5.txt
+  * filename = vertical25.txt
+  * filename = vertical50.txt
+  * filename = vertical75.txt
+  * filename = vertical100.txt
 ==> passed
 
-Test 5: call dequeue() and sample() from an empty randomized queue
-  * dequeue()
-  * sample()
+Test 3b: random vertical line segments
+  *  1 random vertical line segment
+  *  5 random vertical line segments
+  * 10 random vertical line segments
+  * 15 random vertical line segments
 ==> passed
 
-Test 6: create multiple randomized queue objects at the same time
-  * n = 10
-  * n = 100
+Test 4a: points from a file with no line segments
+  * filename = random23.txt
+  * filename = random38.txt
+  * filename = random91.txt
+  * filename = random152.txt
 ==> passed
 
-Test 7: check that iterator() returns correct items after a sequence
-        of n enqueue() operations
-  * n = 10
-  * n = 50
+Test 4b: random points with no line segments
+  *  5 random points
+  * 10 random points
+  * 20 random points
+  * 50 random points
 ==> passed
 
-Test 8: check that iterator() returns correct items after sequence
-        of m enqueue() and dequeue() operations
-  * m = 10
-  * m = 1000
+Test 5a: points from a file with 5 or more on some line segments
+  * filename = input9.txt
+  * filename = input10.txt
+  * filename = input20.txt
+  * filename = input50.txt
+  * filename = input80.txt
+  * filename = input300.txt
+  * filename = inarow.txt
 ==> passed
 
-Test 9: create two nested iterators over the same randomized queue
-  * n = 10
-  * n = 50
+Test 5b: points from a file with 5 or more on some line segments
+  * filename = kw1260.txt
+  * filename = rs1423.txt
 ==> passed
 
-Test 10: create two parallel iterators over the same randomized queue
-  * n = 10
-  * n = 50
+Test 6: points from a file with fewer than 4 points
+  * filename = input1.txt
+  * filename = input2.txt
+  * filename = input3.txt
 ==> passed
 
-Test 11: create two iterators over different randomized queues
+Test 7: check for dependence on either compareTo() or compare()
+        returning { -1, +1, 0 } instead of { negative integer,
+        positive integer, zero }
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = input299.txt
 ==> passed
 
-Test 12: create an iterator and check calls to next() and hasNext()
-  * 10 consecutive calls to hasNext() on a deque of size 10
-  * 10 consecutive calls to next() on a deque of size 10
-  * 50 random intermixed calls to next() and hasNext() on a deque of size 10
-  * 1000 random intermixed calls to next() and hasNext() on a deque of size 100
+Test 8: check for fragile dependence on return value of toString()
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
 ==> passed
 
-Test 13: create RandomizedQueue objects of different parameterized types
+Test 9: random line segments, none vertical or horizontal
+  *  1 random line segment
+  *  5 random line segments
+  * 25 random line segments
+  * 50 random line segments
+  * 100 random line segments
 ==> passed
 
-Test 14: check randomness of sample() by enqueueing n items, repeatedly calling
-         sample(), and counting the frequency of each item
-  * n = 3, trials = 12000
-  * n = 5, trials = 12000
-  * n = 8, trials = 12000
-  * n = 10, trials = 12000
+Test 10: random line segments
+  *  1 random line segment
+  *  5 random line segments
+  * 25 random line segments
+  * 50 random line segments
+  * 100 random line segments
 ==> passed
 
-Test 15: check randomness of dequeue() by enqueueing n items, dequeueing n items,
-         and seeing whether each of the n! permutations is equally likely
-  * n = 2, trials = 12000
-  * n = 3, trials = 12000
-  * n = 4, trials = 12000
-  * n = 5, trials = 12000
+Test 11: random distinct points in a given range
+  * 5 random points in a 10-by-10 grid
+  * 10 random points in a 10-by-10 grid
+  * 50 random points in a 10-by-10 grid
+  * 90 random points in a 10-by-10 grid
+  * 200 random points in a 50-by-50 grid
 ==> passed
 
-Test 16: check randomness of iterator() by enqueueing n items, iterating over those
-         n items, and seeing whether each of the n! permutations is equally likely
-  * n = 2, trials = 12000
-  * n = 3, trials = 12000
-  * n = 4, trials = 12000
-  * n = 5, trials = 12000
+Test 12: m*n points on an m-by-n grid
+  * 3-by-3 grid
+  * 4-by-4 grid
+  * 5-by-5 grid
+  * 10-by-10 grid
+  * 20-by-20 grid
+  * 5-by-4 grid
+  * 6-by-4 grid
+  * 10-by-4 grid
+  * 15-by-4 grid
+  * 25-by-4 grid
 ==> passed
 
-Test 17: call enqueue() with a null argument
-    - fails to throw an exception when calling enqueue() with a null argument
-
-==> FAILED
-
-Test 18: check that remove() and next() throw the specified exceptions in iterator()
+Test 13: check that data type is immutable by testing whether each method
+         returns the same value, regardless of any intervening operations
+  * input8.txt
+  * equidistant.txt
 ==> passed
 
-Test 19: call iterator() when randomized queue is empty
+Test 14: check that data type does not mutate the constructor argument
+  * input8.txt
+  * equidistant.txt
+==> passed
+
+Test 15: numberOfSegments() is consistent with segments()
+  * filename = input8.txt
+  * filename = equidistant.txt
+  * filename = input40.txt
+  * filename = input48.txt
+  * filename = horizontal5.txt
+  * filename = vertical5.txt
+  * filename = random23.txt
+==> passed
+
+Test 16: throws an exception if either constructor argument is null
+         or any entry in array is null
+  * argument is null
+  * Point[] of length 10, number of null entries = 1
+  * Point[] of length 10, number of null entries = 10
+  * Point[] of length 4, number of null entries = 1
+  * Point[] of length 3, number of null entries = 1
+  * Point[] of length 2, number of null entries = 1
+  * Point[] of length 1, number of null entries = 1
+==> passed
+
+Test 17: check that the constructor throws an exception if duplicate points
+  * 50 points
+  * 25 points
+  * 5 points
+  * 4 points
+  * 3 points
+  * 2 points
 ==> passed
 
 
-Total: 18/19 tests passed!
+Total: 21/21 tests passed!
 
 
 ================================================================
-********************************************************************************
-*  TESTING CORRECTNESS (substituting reference RandomizedQueue and Deque)
-********************************************************************************
-
-Testing correctness of Permutation
-*-----------------------------------------------------------
-Tests 1-5 call the main() function directly, resetting standard input
-before each call.
-
-Running 9 total tests.
-
-Test 1a: check formatting for sample inputs from assignment specification
-  % java Permutation 3 < distinct.txt
-  F
-  D
-  A
-
-  % java Permutation 3 < distinct.txt
-  E
-  F
-  I
-
-  % java Permutation 8 < duplicates.txt
-  CC
-  BB
-  CC
-  BB
-  BB
-  BB
-  AA
-  BB
-
-==> passed
-
-Test 1b: check formatting for other inputs
-  % java Permutation 8 < mediumTale.txt
-  it
-  of
-  the
-  the
-  worst
-  times
-  wisdom
-  foolishness
-
-  % java Permutation 0 < distinct.txt
-  [no output]
-
-==> passed
-
-Test 2: check that main() reads all data from standard input
-  * filename = distinct.txt, k = 3
-  * filename = distinct.txt, k = 3
-  * filename = duplicates.txt, k = 8
-  * filename = mediumTale.txt, k = 8
-==> passed
-
-Test 3a: check that main() prints each item from the sequence at most once
-         (for inputs with no duplicate strings)
-  * filename = distinct.txt, k = 3
-  * filename = distinct.txt, k = 1
-  * filename = distinct.txt, k = 9
-  * filename = permutation6.txt, k = 6
-  * filename = permutation10.txt, k = 10
-==> passed
-
-Test 3b: check that main() prints each item from the sequence at most once
-         (for inputs with duplicate strings)
-  * filename = duplicates.txt, k = 8
-  * filename = duplicates.txt, k = 3
-  * filename = permutation8.txt, k = 6
-  * filename = permutation8.txt, k = 2
-  * filename = tinyTale.txt, k = 10
-==> passed
-
-Test 3c: check that main() prints each item from the sequence at most once
-         (for inputs with newlines)
-  * filename = mediumTale.txt, k = 10
-  * filename = mediumTale.txt, k = 20
-  * filename = tale.txt, k = 10
-  * filename = tale.txt, k = 50
-==> passed
-
-Test 4: check main() when k = 0
-  * filename = distinct.txt, k = 0
-  * filename = distinct.txt, k = 0
-==> passed
-
-Test 5a: check that permutations are uniformly random
-         (for inputs with no duplicate strings)
-  * filename = permutation4.txt, k = 1
-  * filename = permutation4.txt, k = 2
-  * filename = permutation4.txt, k = 3
-  * filename = permutation4.txt, k = 4
-  * filename = permutation6.txt, k = 2
-==> passed
-
-Test 5b: check that permutations are uniformly random
-         (for inputs with duplicate strings)
-  * filename = permutation5.txt, k = 1
-  * filename = permutation5.txt, k = 2
-  * filename = permutation5.txt, k = 3
-  * filename = duplicates.txt, k = 3
-  * filename = permutation8.txt, k = 2
-==> passed
-
-Total: 9/9 tests passed!
-
-
-================================================================
-********************************************************************************
-*  TIMING (substituting reference RandomizedQueue and Deque)
-********************************************************************************
-
-Timing Permutation
-*-----------------------------------------------------------
-Running 23 total tests.
-
-Test 1: count calls to methods in StdIn
-  * java Permutation 5 < distinct.txt
-  * java Permutation 10 < permutation10.txt
-  * java Permutation 1 < mediumTale.txt
-  * java Permutation 20 < tale.txt
-  * java Permutation 100 < tale.txt
-  * java Permutation 16412 < tale.txt
-==> passed
-
-Test 2: count calls to methods in Deque and RandomizedQueue
-  * java Permutation 5 < distinct.txt
-  * java Permutation 10 < permutation10.txt
-  * java Permutation 1 < mediumTale.txt
-  * java Permutation 20 < tale.txt
-  * java Permutation 100 < tale.txt
-  * java Permutation 16412 < tale.txt
-==> passed
-
-Test 3: count calls to methods in StdRandom
-  * java Permutation 5 < distinct.txt
-  * java Permutation 10 < permutation10.txt
-  * java Permutation 1 < mediumTale.txt
-  * java Permutation 20 < tale.txt
-  * java Permutation 100 < tale.txt
-  * java Permutation 16412 < tale.txt
-==> passed
-
-Test 4: Time main() with k = 5, for inputs containing n random strings
-
-                    n  seconds
-------------------------------
-=> passed        1000     0.00
-=> passed        2000     0.00
-=> passed        4000     0.00
-=> passed        8000     0.00
-=> passed       16000     0.01
-=> passed       32000     0.02
-=> passed       64000     0.30
-=> passed      128000     0.16
-=> passed      256000     0.09
-=> passed      512000     0.17
-==> 10/10 tests passed
-
-
-Test 5: Time main() with k = 1000, for inputs containing n random strings
-
-                    n  seconds
-------------------------------
-=> passed        1000     0.00
-=> passed        2000     0.00
-=> passed        4000     0.00
-=> passed        8000     0.00
-=> passed       16000     0.01
-=> passed       32000     0.01
-=> passed       64000     0.02
-=> passed      128000     0.04
-=> passed      256000     0.08
-=> passed      512000     0.22
-==> 10/10 tests passed
-
-
-Total: 23/23 tests passed!
-
-
-================================================================
-
-
-
 ********************************************************************************
 *  MEMORY
 ********************************************************************************
 
-Analyzing memory of Permutation
+Analyzing memory of Point
 *-----------------------------------------------------------
-Running 2 total tests.
+Running 1 total tests.
 
-Test 1: check that only one Deque or RandomizedQueue object is created
-  * filename = distinct.txt, n = 9, k = 1
-  * filename = distinct.txt, n = 9, k = 2
-  * filename = distinct.txt, n = 9, k = 4
-  * filename = tinyTale.txt, n = 12, k = 10
-  * filename = tale.txt, n = 138653, k = 50
-==> passed
+The maximum amount of memory per Point object is 32 bytes.
 
-Test 2: check that the maximum size of any Deque or RandomizedQueue object
-        created is between k and n
-  * filename = distinct.txt, n = 9, k = 1
-  * filename = distinct.txt, n = 9, k = 2
-  * filename = distinct.txt, n = 9, k = 4
-  * filename = tinyTale.txt, n = 12, k = 10
-  * filename = tale.txt, n = 138653, k = 5
-  * filename = tale.txt, n = 138653, k = 50
-  * filename = tale.txt, n = 138653, k = 500
-  * filename = tale.txt, n = 138653, k = 5000
-  * filename = tale.txt, n = 138653, k = 50000
-==> passed
+Student memory = 24 bytes (passed)
 
-Test 3 (bonus): check that maximum size of any or Deque or RandomizedQueue object
-                created is equal to k
-  * filename = tale.txt, n = 138653, k = 5
-    - max size of RandomizedQueue object = 138653
-
-  * filename = tale.txt, n = 138653, k = 50
-    - max size of RandomizedQueue object = 138653
-
-  * filename = tale.txt, n = 138653, k = 500
-    - max size of RandomizedQueue object = 138653
-
-  * filename = tale.txt, n = 138653, k = 5000
-    - max size of RandomizedQueue object = 138653
-
-  * filename = tale.txt, n = 138653, k = 50000
-    - max size of RandomizedQueue object = 138653
-
-==> FAILED
-
-Total: 2/2 tests passed!
-
-
-================================================================
-
-
-
-********************************************************************************
-*  MEMORY
-********************************************************************************
-
-Analyzing memory of Deque
-*-----------------------------------------------------------
-For tests 1-4, the maximum amount of memory allowed for a Deque
-containing n items is 48n + 192.
-
-Running 48 total tests.
-
-Test 1a-1i: total memory usage after inserting n items,
-            where n is a power of 2
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32         1576         
-=> passed       64         3112         
-=> passed      128         6184         
-=> passed      256        12328         
-=> passed      512        24616         
-=> passed     1024        49192         
-=> passed     2048        98344         
-=> passed     4096       196648         
-=> passed     8192       393256         
-==> 9/9 tests passed
-
-Memory: 48.00 n + 40.00   (R^2 = 1.000)
-
-
-Test 2a-2i: Total memory usage after inserting n items,
-            when n is one more than a power of 2.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       33         1624         
-=> passed       65         3160         
-=> passed      129         6232         
-=> passed      257        12376         
-=> passed      513        24664         
-=> passed     1025        49240         
-=> passed     2049        98392         
-=> passed     4097       196696         
-=> passed     8193       393304         
-==> 9/9 tests passed
-
-Memory: 48.00 n + 40.00   (R^2 = 1.000)
-
-
-Test 3a-3i: Total memory usage after inserting 2n-1 items, and then
-            deleting n-1 items, when n is one more than a power of 2.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       33         1624         
-=> passed       65         3160         
-=> passed      129         6232         
-=> passed      257        12376         
-=> passed      513        24664         
-=> passed     1025        49240         
-=> passed     2049        98392         
-=> passed     4097       196696         
-=> passed     8193       393304         
-==> 9/9 tests passed
-
-Memory: 48.00 n + 40.00   (R^2 = 1.000)
-
-
-Test 4a-4e: Total memory usage after inserting n items,
-            and then deleting all but one item
-            (should not grow with n or be too large of a constant).
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32           88         
-=> passed       64           88         
-=> passed      128           88         
-=> passed      256           88         
-=> passed      512           88         
-=> passed     1024           88         
-=> passed     2048           88         
-=> passed     4096           88         
-=> passed     8192           88         
-==> 9/9 tests passed
-
-Memory: 88.00   (R^2 = 1.000)
-
-
-Test 5a-5e: Total memory usage of iterator after inserting n items
-            (should not grow with n or be too large of a constant).
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32           32         
-=> passed       64           32         
-=> passed      128           32         
-=> passed      256           32         
-=> passed      512           32         
-=> passed     1024           32         
-=> passed     2048           32         
-=> passed     4096           32         
-=> passed     8192           32         
-==> 9/9 tests passed
-
-Memory: 32.00   (R^2 = 1.000)
-
-
-Test 6a: Insert n strings; delete them one at a time, checking for
-         loitering after each deletion. The probabilities of addFirst()
-         and addLast() are (p1, p2), respectively. The probabilities of
-         removeFirst() and removeLast() are (q1, q2), respectively.
-  * 100 random insertions (1.0, 0.0) and 100 random deletions (1.0, 0.0)
-  * 100 random insertions (1.0, 0.0) and 100 random deletions (0.0, 1.0)
-  * 100 random insertions (0.0, 1.0) and 100 random deletions (1.0, 0.0)
-  * 100 random insertions (0.0, 1.0) and 100 random deletions (0.0, 1.0)
-  * 100 random insertions (0.5, 0.5) and 100 random deletions (0.5, 0.5)
-==> passed
-
-Test 6b: Perform random operations, checking for loitering after
-         each operation. The probabilities of addFirst(), addLast(),
-         removeFirst(), and removeLast() are (p1, p2, p3, p4),
-         respectively.
-  * 100 random operations (0.8, 0.0, 0.2, 0.0)
-  * 100 random operations (0.8, 0.0, 0.0, 0.2)
-  * 100 random operations (0.0, 0.8, 0.2, 0.0)
-  * 100 random operations (0.0, 0.8, 0.0, 0.2)
-  * 100 random operations (0.4, 0.4, 0.1, 0.1)
-  * 100 random operations (0.2, 0.2, 0.3, 0.3)
-==> passed
-
-Test 7: worst-case constant memory allocated or de-allocated
-        per deque operation?
-  * 128 random operations
-  * 256 random operations
-  * 512 random operations
-==> passed
-
-
-Min observed memory for Deque: 48.00 n + 40.00   (R^2 = 1.000)
-Max observed memory for Deque: 48.00 n + 40.00   (R^2 = 1.000)
-
-Total: 48/48 tests passed!
-
-
-================================================================
-
-
-
-Analyzing memory of RandomizedQueue
-*-----------------------------------------------------------
-For Tests 1-5, the maximum amount of memory allowed for
-a RandomizedQueue containing n items is 48n + 192.
-
-For Test 6, the maximum amount of memory allowed for
-a RandomizedQueue iterator over n items is 8n + 72.
-
-Test 1a-1i: Total memory usage after inserting n items
-            when n is a power of 2.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32          312         
-=> passed       64          568         
-=> passed      128         1080         
-=> passed      256         2104         
-=> passed      512         4152         
-=> passed     1024         8248         
-=> passed     2048        16440         
-=> passed     4096        32824         
-=> passed     8192        65592         
-==> 9/9 tests passed
-
-Memory: 8.00 n + 56.00   (R^2 = 1.000)
-
-
-Test 2a-2i: Total memory usage after inserting n items,
-            when n is one more than a power of 2.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       33          568         
-=> passed       65         1080         
-=> passed      129         2104         
-=> passed      257         4152         
-=> passed      513         8248         
-=> passed     1025        16440         
-=> passed     2049        32824         
-=> passed     4097        65592         
-=> passed     8193       131128         
-==> 9/9 tests passed
-
-Memory: 16.00 n + 40.00   (R^2 = 1.000)
-
-
-Test 3a-3i: Total memory usage after inserting 2n-1 items, and then
-            deleting n-1 items, when n is one more than a power of 2.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       33         1080         
-=> passed       65         2104         
-=> passed      129         4152         
-=> passed      257         8248         
-=> passed      513        16440         
-=> passed     1025        32824         
-=> passed     2049        65592         
-=> passed     4097       131128         
-=> passed     8193       262200         
-==> 9/9 tests passed
-
-Memory: 32.00 n + 24.00   (R^2 = 1.000)
-
-
-Test 4a-4i: Total memory usage after inserting n items, deleting n items,
-            then inserting n times, when n is a power of 2.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32          312         
-=> passed       64          568         
-=> passed      128         1080         
-=> passed      256         2104         
-=> passed      512         4152         
-=> passed     1024         8248         
-=> passed     2048        16440         
-=> passed     4096        32824         
-=> passed     8192        65592         
-==> 9/9 tests passed
-
-Memory: 8.00 n + 56.00   (R^2 = 1.000)
-
-
-Test 5a-5i: Total memory usage after inserting n items,
-            and then deleting all but one item.
-
-                 n        bytes
-----------------------------------------------------------
-=> FAILED       32          312   (1.3x)
-=> FAILED       64          312   (1.3x)
-=> FAILED      128          312   (1.3x)
-=> FAILED      256          312   (1.3x)
-=> FAILED      512          312   (1.3x)
-=> FAILED     1024          312   (1.3x)
-=> FAILED     2048          312   (1.3x)
-=> FAILED     4096          312   (1.3x)
-=> FAILED     8192          312   (1.3x)
-==> 0/9 tests passed
-
-Memory: 312.00   (R^2 = 1.000)
-
-
-Test 6a-6i: Total memory usage of iterator after inserting n items.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32          320         
-=> passed       64          576         
-=> passed      128         1088         
-=> passed      256         2112         
-=> passed      512         4160         
-=> passed     1024         8256         
-=> passed     2048        16448         
-=> passed     4096        32832         
-=> passed     8192        65600         
-==> 9/9 tests passed
-
-Memory: 8.00 n + 64.00   (R^2 = 1.000)
-
-
-Test 7a: Insert 100 strings; delete them one at a time, checking
-         for loitering after each deletion.
-==> passed
-
-Test 7b: Perform random operations, checking for loitering after
-         each operation. The probabilities of enqueue(), dequeue(),
-         and sample() are (p1, p2, p3), respectively.
-  * 200 random operations (0.8, 0.2, 0.0)
-  * 200 random operations (0.2, 0.8, 0.0)
-  * 200 random operations (0.6, 0.2, 0.2)
-  * 200 random operations (0.2, 0.4, 0.4)
-==> passed
-
-Test 8: Insert T items into queue; then iterate over queue and check
-        that worst-case constant memory is allocated or deallocated
-        per iterator operation.
-  * T = 64
-  * T = 128
-  * T = 256
-==> passed
-
-Test 9: Total memory usage after inserting n items, seeking to identify
-        values of n where memory usage is minimized as a function of n.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed        8          120         
-=> passed       16          184         
-=> passed       32          312         
-=> passed       64          568         
-=> passed      128         1080         
-=> passed      256         2104         
-=> passed      512         4152         
-=> passed     1024         8248         
-=> passed     2048        16440         
-=> passed        8          120         
-=> passed       16          184         
-=> passed       32          312         
-=> passed       64          568         
-=> passed      128         1080         
-=> passed      256         2104         
-=> passed      512         4152         
-=> passed     1024         8248         
-=> passed     2048        16440         
-==> 18/18 tests passed
-
-Memory: 8.00 n + 56.00   (R^2 = 1.000)
-
-
-Test 10: Total memory usage after inserting 4096 items, then successively
-         deleting items, seeking values of n where memory usage is maximized
-         as a function of n
-
-                 n        bytes
-----------------------------------------------------------
-=> passed     2049        65592         
-=> passed     1025        32824         
-=> passed      513        16440         
-=> passed      257         8248         
-=> passed      129         4152         
-=> passed       65         2104         
-=> passed       33         1080         
-=> passed       17          568         
-==> 8/8 tests passed
-
-Memory: 32.00 n + 24.00   (R^2 = 1.000)
-
-
-Min observed memory for RandomizedQueue: 8.00 n + 56.00   (R^2 = 1.000)
-Max observed memory for RandomizedQueue: 32.00 n + 24.00   (R^2 = 1.000)
-
-Running 83 total tests.
-
-Total: 74/83 tests passed!
+Total: 1/1 tests passed!
 
 
 ================================================================
@@ -970,329 +505,124 @@ Total: 74/83 tests passed!
 *  TIMING
 ********************************************************************************
 
-Timing Deque
+Timing BruteCollinearPoints
 *-----------------------------------------------------------
-Running 103 total tests.
+Running 10 total tests.
 
-Test 1a-1k: make n calls to addFirst() followed by n calls to removeFirst()
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.00
-=> passed      256000     0.00
-=> passed      512000     0.01
-=> passed     1024000     0.02
-==> 11/11 tests passed
+Test 1a-1e: Find collinear points among n random distinct points
 
 
-Test 2a-2k: make n calls to addLast() followed by n calls to removeLast()
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.00
-=> passed      256000     0.00
-=> passed      512000     0.01
-=> passed     1024000     0.02
-==> 11/11 tests passed
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    16   0.00        2500           0           2500                   59         
+=> passed    32   0.00       41416           0          41416                  152         
+=> passed    64   0.02      679056           0         679056                  367         
+=> passed   128   0.04    11017504           0       11017504                  864         
+=> passed   256   0.22   177588800           0      177588800                 1999         
+==> 5/5 tests passed
+
+Test 2a-2e: Find collinear points among n/4 arbitrary line segments
 
 
-Test 3a-3k: make n calls to addFirst() followed by n calls to removeLast()
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.00
-=> passed      256000     0.01
-=> passed      512000     0.01
-=> passed     1024000     0.02
-==> 11/11 tests passed
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    16   0.00        2500           0           2500                   90         
+=> passed    32   0.00       41416           0          41416                  221         
+=> passed    64   0.02      679056           0         679056                  576         
+=> passed   128   0.03    11017504           0       11017504                 1530         
+=> passed   256   1.09   177588800           0      177588800                 4351         
+==> 5/5 tests passed
 
-
-Test 4a-4k: make n calls to addLast() followed by n calls to removeFirst()
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.00
-=> passed      256000     0.00
-=> passed      512000     0.01
-=> passed     1024000     0.01
-==> 11/11 tests passed
-
-
-Test 5a-5g: make n random calls to addFirst(), removeFirst(), isEmpty(), and size()
-            with probabilities (0.7, 0.1, 0.1, 0.1)
-
-                    n  seconds
-------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.00
-=> passed      256000     0.01
-=> passed      512000     0.02
-=> passed     1024000     0.20
-=> passed     2048000     0.07
-==> 12/12 tests passed
-
-
-Test 6a-6g: make n random calls to addLast(), removeLast(), isEmpty(), and size(),
-            with probabilities (0.7, 0.1, 0.1, 0.1)
-
-                    n  seconds
-------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.01
-=> passed      256000     0.01
-=> passed      512000     0.02
-=> passed     1024000     0.05
-=> passed     2048000     0.07
-==> 12/12 tests passed
-
-
-Test 7a-7g: make n random calls to addFirst(), addLast(), removeFirst(), removeLast(),
-            isEmpty(), and size() with probabilities (0.3, 0.3, 0.1, 0.1, 0.1, 0.1)
-
-                    n  seconds
-------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.00
-=> passed      256000     0.01
-=> passed      512000     0.02
-=> passed     1024000     0.04
-=> passed     2048000     0.09
-==> 12/12 tests passed
-
-
-Test 8a-8g: make n calls to addFirst(); iterate over the n items by calling
-            next() and hasNext()
-
-                    n  seconds
-------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.00
-=> passed      256000     0.01
-=> passed      512000     0.01
-=> passed     1024000     0.09
-=> passed     2048000     0.05
-==> 12/12 tests passed
-
-
-Test 9a-9k: make n calls to addFirst()/addLast(); interleave n calls each to
-            removeFirst(), removeLast(), addFirst(), and addLast()
-
-                    n  seconds
-----------------------------------
-=> passed        1025     0.00
-=> passed        2049     0.00
-=> passed        4097     0.00
-=> passed        8193     0.00
-=> passed       16385     0.00
-=> passed       32769     0.01
-=> passed       65537     0.01
-=> passed      128001     0.02
-=> passed      256001     0.14
-=> passed      512001     0.07
-=> passed     1024001     0.08
-==> 11/11 tests passed
-
-Total: 103/103 tests passed!
+Total: 10/10 tests passed!
 
 
 ================================================================
 
 
 
-Timing RandomizedQueue
+Timing FastCollinearPoints
 *-----------------------------------------------------------
-Running 67 total tests.
+Running 31 total tests.
 
-Test 1: make n calls to enqueue() followed by n calls to dequeue();
-        count calls to StdRandom
-  * n = 10
-  * n = 100
-  * n = 1000
-==> passed
-
-Test 2: make n calls to enqueue() follwed by n calls to sample();
-        count calls to StdRandom
-  * n = 10
-  * n = 100
-  * n = 1000
-==> passed
-
-Test 3: make n calls to enqueue() and iterate over the n items;
-        count calls to StdRandom
-  * n = 10
-  * n = 100
-  * n = 1000
-==> passed
-
-Test 4a-k: make n calls to enqueue() followed by n calls to dequeue()
-
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.01
-=> passed      256000     0.02
-=> passed      512000     0.03
-=> passed     1024000     0.06
-==> 11/11 tests passed
+Test 1a-1g: Find collinear points among n random distinct points
 
 
-Test 5a-k: make n calls to enqueue() followed by n random calls to
-           enqueue(), sample(), dequeue(), isEmpty(), and size()
-           with probabilities (0.2, 0.2, 0.2, 0.2, 0.2)
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.01        4096       18845          41786                 4400         
+=> passed   128   0.01       16384       89397         195178                17124         
+=> passed   256   0.05       65536      414246         894028                67267         
+=> passed   512   0.16      262144     1866817        3995778               266096         
+=> passed  1024   0.38     1048576     8500210       18048996              1057594         
+=> passed  2048   1.02     4194304    37968048       80130400              4214343         
+==> 6/6 tests passed
 
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.01
-=> passed      128000     0.01
-=> passed      256000     0.02
-=> passed      512000     0.07
-=> passed     1024000     0.18
-==> 11/11 tests passed
+lg ratio(slopeTo() + 2*compare()) = lg (80130400 / 18048996) = 2.15
+=> passed
 
+==> 7/7 tests passed
 
-Test 6a-k: make n calls to enqueue() followed by n random calls to
-           enqueue(), sample(), dequeue(), isEmpty(), and size()
-           with probabilities (0.6, 0.1, 0.1, 0.1, 0.1)
+Test 2a-2g: Find collinear points among the n points on an n-by-1 grid
 
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.01
-=> passed      256000     0.02
-=> passed      512000     0.20
-=> passed     1024000     0.31
-==> 11/11 tests passed
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.00        4096        4764          13624                 8388         
+=> passed   128   0.00       16384       17796          51976                33073         
+=> passed   256   0.01       65536       68717         202970               131883         
+=> passed   512   0.02      262144      269399         800942               525762         
+=> passed  1024   0.08     1048576     1065026        3178628              2101446         
+=> passed  2048   0.27     4194304     4231214       12656732              8397274         
+=> passed  4096   0.29    16777216    16859163       50495542             33575184         
+==> 7/7 tests passed
 
+lg ratio(slopeTo() + 2*compare()) = lg (50495542 / 12656732) = 2.00
+=> passed
 
-Test 7a-k: make n calls to enqueue() followed by n random calls to
-           enqueue(), sample(), dequeue(), isEmpty(), and size()
-           with probabilities (0.1, 0.1, 0.6, 0.1, 0.1)
+==> 8/8 tests passed
 
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.01
-=> passed      128000     0.02
-=> passed      256000     0.18
-=> passed      512000     0.13
-=> passed     1024000     0.36
-==> 11/11 tests passed
+Test 3a-3g: Find collinear points among the n points on an n/4-by-4 grid
 
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.00        4096       17401          38898                10229         
+=> passed   128   0.01       16384       72754         161892                42927         
+=> passed   256   0.03       65536      283649         632834               184463         
+=> passed   512   0.08      262144     1112549        2487242               745325         
+=> passed  1024   0.22     1048576     4397320        9843216              2953313         
+=> passed  2048   0.47     4194304    17549517       39293338             12323112         
+=> passed  4096   1.75    16777216    69963804      156704824             50670549         
+==> 7/7 tests passed
 
-Test 8a-k: make n calls to enqueue() followed by n calls each to
-           next() and hasNext().
+lg ratio(slopeTo() + 2*compare()) = lg (156704824 / 39293338) = 2.00
+=> passed
 
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.00
-=> passed       32768     0.00
-=> passed       65536     0.00
-=> passed      128000     0.01
-=> passed      256000     0.02
-=> passed      512000     0.04
-=> passed     1024000     0.14
-==> 11/11 tests passed
+==> 8/8 tests passed
 
+Test 4a-4g: Find collinear points among the n points on an n/8-by-8 grid
 
-Test 9a-i: make 100 calls to enqueue; 99 calls to dequeue;
-           n calls to enqueue(); then call dequeue() three times,
-           followed by enqueue() three times, and repeat n times.
+                                                      slopeTo()
+             n    time     slopeTo()   compare()  + 2*compare()        compareTo()
+-----------------------------------------------------------------------------------------------
+=> passed    64   0.00        4096       18596          41288                 9804         
+=> passed   128   0.00       16384       86963         190310                41109         
+=> passed   256   0.01       65536      386183         837902               174469         
+=> passed   512   0.05      262144     1627743        3517630               746931         
+=> passed  1024   0.18     1048576     6712332       14473240              3144006         
+=> passed  2048   0.69     4194304    27750333       59694970             12752412         
+=> passed  4096   2.85    16777216   112917952      242613120             51901351         
+==> 7/7 tests passed
 
-                    n  seconds
-----------------------------------
-=> passed        1024     0.00
-=> passed        2048     0.00
-=> passed        4096     0.00
-=> passed        8192     0.00
-=> passed       16384     0.01
-=> passed       32768     0.01
-=> passed       65536     0.02
-=> passed      128000     0.02
-=> passed      256000     0.10
-==> 9/9 tests passed
+lg ratio(slopeTo() + 2*compare()) = lg (242613120 / 59694970) = 2.02
+=> passed
 
+==> 8/8 tests passed
 
-Total: 67/67 tests passed!
+Total: 31/31 tests passed!
 
 
 ================================================================
-
-
-
-
-

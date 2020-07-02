@@ -26,6 +26,13 @@
       "mainClass": "FastCollinearPoints",
       "projectName": "mergesorts",
       "args": "input48.txt"
+    },
+    {
+      "type": "java",
+      "name": "PerfTester",
+      "request": "launch",
+      "mainClass": "PerfTester",
+      "projectName": "mergesorts"
     }
   ]
 }
