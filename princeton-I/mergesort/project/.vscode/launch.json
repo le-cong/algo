@@ -17,7 +17,7 @@
       "request": "launch",
       "mainClass": "BruteCollinearPoints",
       "projectName": "mergesorts",
-      "args": "input8.txt"
+      "args": "input40.txt"
     },
     {
       "type": "java",
@@ -25,7 +25,7 @@
       "request": "launch",
       "mainClass": "FastCollinearPoints",
       "projectName": "mergesorts",
-      "args": "input8.txt"
+      "args": "input40.txt"
     }
   ]
 }

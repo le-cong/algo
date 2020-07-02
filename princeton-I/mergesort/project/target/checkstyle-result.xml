@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.31">
 <file name="BruteCollinearPoints.java">
-<error line="22" column="20" severity="warning" message="Do not use the letter &apos;l&apos; as a local variable name. It is hard to distinguish from the number &apos;1&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
+<error line="49" column="20" severity="warning" message="Do not use the letter &apos;l&apos; as a local variable name. It is hard to distinguish from the number &apos;1&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
 </file>
 <file name="TowSum.java">
 <error line="3" column="1" severity="warning" message="The name of the outer type and the file do not match. For example, the class Point must be in a file named Point.java." source="com.puppycrawl.tools.checkstyle.checks.OuterTypeFilenameCheck"/>
+</file>
+<file name="FastCollinearPoints.java">
 </file>
 </checkstyle>

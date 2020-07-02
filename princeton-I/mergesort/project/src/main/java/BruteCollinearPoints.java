@@ -7,23 +7,55 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class BruteCollinearPoints {
 
-  private ArrayList<LineSegment> lines = new ArrayList<>();
+  private ArrayList<LineSegment> lineSegments;
+
+  private class Line {
+    Point start;
+    Point end;
+
+    Line(Point start, Point end) {
+      this.start = start;
+      this.end = end;
+    }
+
+    LineSegment toLineSegment() {
+      return new LineSegment(start, end);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      Line that = (Line) obj;
+      return this.start.compareTo(that.start) == 0 && this.end.compareTo(that.end) == 0;
+    }
+  }
 
   // finds all line segments containing 4 points
   public BruteCollinearPoints(Point[] points) {
-    if (points == null) {
-      throw new IllegalArgumentException();
-    }
+
+    init(points);
+
     int n = points.length;
-    Arrays.sort(points);
+    if (n < 4) {
+      return;
+    }
+
+    ArrayList<Line> lines = new ArrayList<>();
+
     for (int i = 0; i < n; i++) {
       for (int j = i + 1; j < n; j++) {
+        double sij = points[i].slopeTo(points[j]);
         for (int k = j + 1; k < n; k++) {
+          double sjk = points[j].slopeTo(points[k]);
           for (int l = k + 1; l < n; l++) {
-            if (points[i].slopeTo(points[j]) == points[k].slopeTo(points[l])) {
+            double skl = points[k].slopeTo(points[l]);
+            if (sij == sjk && sjk == skl) {
               Point[] pGroup = new Point[] { points[i], points[j], points[k], points[l] };
               Arrays.sort(pGroup);
-              lines.add(new LineSegment(pGroup[0], pGroup[3]));
+              Line line = new Line(pGroup[0], pGroup[3]);
+              if (!lines.contains(line)) {
+                lines.add(line);
+                lineSegments.add(line.toLineSegment());
+              }
             }
           }
         }
@@ -31,15 +63,39 @@ public class BruteCollinearPoints {
     }
   }
 
+  private void init(Point[] points) {
+    if (null == points) {
+      throw new IllegalArgumentException();
+    }
+
+    int n = points.length;
+    for (int i = 0; i < n; i++) {
+      if (points[i] == null) {
+        throw new IllegalArgumentException();
+      }
+    }
+
+    lineSegments = new ArrayList<>();
+
+    Point[] pp = Arrays.copyOf(points, n);
+    Arrays.sort(pp);
+    for (int i = 1; i < n; i++) {
+      if (pp[i].compareTo(pp[i - 1]) == 0) {
+        throw new IllegalArgumentException();
+      }
+    }
+  }
+
   // the number of line segments
   public int numberOfSegments() {
-    return lines.size();
+    return lineSegments.size();
   }
 
   // the line segments
   public LineSegment[] segments() {
-    LineSegment[] ret = new LineSegment[lines.size()];
-    return lines.toArray(ret);
+    LineSegment[] ret = new LineSegment[numberOfSegments()];
+    lineSegments.toArray(ret);
+    return ret;
   }
 
   public static void main(String[] args) {

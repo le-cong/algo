@@ -7,30 +7,41 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class FastCollinearPoints {
 
-  private ArrayList<LineSegment> lines = new ArrayList<>();
+  private ArrayList<LineSegment> lineSegments = new ArrayList<>();
+
+  private class Line {
+    Point start;
+    Point end;
+
+    Line(Point start, Point end) {
+      this.start = start;
+      this.end = end;
+    }
+
+    LineSegment toLineSegment() {
+      return new LineSegment(start, end);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      Line that = (Line) obj;
+      return this.start.compareTo(that.start) == 0 && this.end.compareTo(that.end) == 0;
+    }
+  }
 
   // finds all line segments containing 4 points
   public FastCollinearPoints(Point[] points) {
-    if (null == points) {
-      throw new IllegalArgumentException();
-    }
+
+    init(points);
 
     int n = points.length;
-    Arrays.sort(points);
-    for (int i = 0; i < n; i++) {
-      if (points[i] == null) {
-        throw new IllegalArgumentException();
-      }
-      if (i > 0 && points[i].compareTo(points[i - 1]) == 0) {
-        throw new IllegalArgumentException();
-      }
-    }
-
     if (n < 4) {
       return;
     }
 
     Point[] pp = Arrays.copyOf(points, n);
+    ArrayList<Line> lines = new ArrayList<>();
+
     for (int i = 0; i < n; i++) {
       Point origin = points[i];
       Arrays.sort(pp, origin.slopeOrder());
@@ -50,25 +61,19 @@ public class FastCollinearPoints {
         }
 
         if (lineEnd >= 0) {
-          int pGroupSize = lineEnd - lineStart + 1;
+          int pGroupSize = lineEnd - lineStart + 2;
           // StdOut.printf("start: %d, end: %d \n", lineStart, lineEnd);
-          if (pGroupSize >= 3) {
-            Point[] pGroup = new Point[pGroupSize + 1];
+          if (pGroupSize >= 4) {
+            Point[] pGroup = new Point[pGroupSize];
             pGroup[0] = origin;
-            for (int k = 1; k <= pGroupSize; k++) {
+            for (int k = 1; k < pGroupSize; k++) {
               pGroup[k] = pp[k + lineStart - 1];
             }
             Arrays.sort(pGroup);
-            LineSegment ls = new LineSegment(pGroup[0], pGroup[pGroup.length - 1]);
-            boolean isDup = false;
-            for (LineSegment existingLine : lines) {
-              if (existingLine.toString().equals(ls.toString())) {
-                isDup = true;
-                break;
-              }
-            }
-            if (!isDup) {
-              lines.add(ls);
+            Line line = new Line(pGroup[0], pGroup[pGroupSize - 1]);
+            if (!lines.contains(line)) {
+              lines.add(line);
+              lineSegments.add(line.toLineSegment());
             }
           }
           lineStart = j;
@@ -78,15 +83,38 @@ public class FastCollinearPoints {
     }
   }
 
+  private void init(Point[] points) {
+    if (null == points) {
+      throw new IllegalArgumentException();
+    }
+
+    int n = points.length;
+    for (int i = 0; i < n; i++) {
+      if (points[i] == null) {
+        throw new IllegalArgumentException();
+      }
+    }
+
+    Point[] pp = Arrays.copyOf(points, n);
+    Arrays.sort(pp);
+    for (int i = 1; i < n; i++) {
+      if (pp[i].compareTo(pp[i - 1]) == 0) {
+        throw new IllegalArgumentException();
+      }
+    }
+
+  }
+
   // the number of line segments
   public int numberOfSegments() {
-    return lines.size();
+    return lineSegments.size();
   }
 
   // the line segments
   public LineSegment[] segments() {
-    LineSegment[] ret = new LineSegment[lines.size()];
-    return lines.toArray(ret);
+    LineSegment[] ret = new LineSegment[numberOfSegments()];
+    lineSegments.toArray(ret);
+    return ret;
   }
 
   public static void main(String[] args) {
