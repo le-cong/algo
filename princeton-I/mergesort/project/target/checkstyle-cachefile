@@ -1,6 +1,6 @@
-#Wed Jul 01 22:19:06 EDT 2020
+#Thu Jul 02 03:59:30 EDT 2020
 configuration*?=42CC72C83D426E107B121A333919E60206C11B4
 module-resource*?\:/Users/lcong/workspace/algo/princeton-I/lib/checkstyle-suppressions.xml=56330E359A73609B6B8A83D7A80A4C05B0BE76FD
-/Users/lcong/workspace/algo/princeton-I/mergesort/project/src/main/java/Point.java=1593651479502
-/Users/lcong/workspace/algo/princeton-I/mergesort/project/src/main/java/FastCollinearPoints.java=1593656318197
+/Users/lcong/workspace/algo/princeton-I/mergesort/project/src/main/java/Point.java=1593676015351
+/Users/lcong/workspace/algo/princeton-I/mergesort/project/src/main/java/FastCollinearPoints.java=1593676710312
 /Users/lcong/workspace/algo/princeton-I/mergesort/project/src/main/java/LineSegment.java=1455408748000

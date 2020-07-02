@@ -25,7 +25,7 @@
       "request": "launch",
       "mainClass": "FastCollinearPoints",
       "projectName": "mergesorts",
-      "args": "input40.txt"
+      "args": "input48.txt"
     }
   ]
 }

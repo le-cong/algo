@@ -25,7 +25,7 @@ public class FastCollinearPoints {
     @Override
     public boolean equals(Object obj) {
       Line that = (Line) obj;
-      return this.start.compareTo(that.start) == 0 && this.end.compareTo(that.end) == 0;
+      return this.start == that.start && this.end == that.end;
     }
   }
 
@@ -51,26 +51,29 @@ public class FastCollinearPoints {
       double lineSlope = pp[0].slopeTo(origin);
       int lineStart = 0;
       int lineEnd = -1;
+      Point pointMin = origin;
+      Point pointMax = origin;
       for (int j = 1; j < n; j++) {
         double curSlope = pp[j].slopeTo(origin);
         if (curSlope != lineSlope) {
           lineEnd = j - 1;
           lineSlope = curSlope;
-        } else if (j == n - 1) {
-          lineEnd = j;
+        } else {
+          if (j == n - 1) {
+            lineEnd = j;
+          }
+          if (pp[j].compareTo(pointMin) < 0) {
+            pointMin = pp[j];
+          } else if (pp[j].compareTo(pointMax) > 0) {
+            pointMax = pp[j];
+          }
         }
 
         if (lineEnd >= 0) {
           int pGroupSize = lineEnd - lineStart + 2;
           // StdOut.printf("start: %d, end: %d \n", lineStart, lineEnd);
           if (pGroupSize >= 4) {
-            Point[] pGroup = new Point[pGroupSize];
-            pGroup[0] = origin;
-            for (int k = 1; k < pGroupSize; k++) {
-              pGroup[k] = pp[k + lineStart - 1];
-            }
-            Arrays.sort(pGroup);
-            Line line = new Line(pGroup[0], pGroup[pGroupSize - 1]);
+            Line line = new Line(pointMin, pointMax);
             if (!lines.contains(line)) {
               lines.add(line);
               lineSegments.add(line.toLineSegment());
@@ -78,6 +81,13 @@ public class FastCollinearPoints {
           }
           lineStart = j;
           lineEnd = -1;
+          if (origin.compareTo(pp[j]) < 0) {
+            pointMin = origin;
+            pointMax = pp[j];
+          } else {
+            pointMin = pp[j];
+            pointMax = origin;
+          }
         }
       }
     }

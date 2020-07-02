@@ -38,6 +38,7 @@ public class Point implements Comparable<Point> {
         StdDraw.point(x, y);
     }
 
+
     /**
      * Draws the line segment between this point and the specified point to standard
      * draw.
