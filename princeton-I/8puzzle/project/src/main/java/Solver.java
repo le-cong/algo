@@ -31,12 +31,19 @@ public class Solver {
   // find a solution to the initial board (using the A* algorithm)
   public Solver(Board initial) {
 
-    pq = new MinPQ<>();
+    if (initial == null) {
+      throw new IllegalArgumentException();
+    }
 
+    pq = new MinPQ<>();
     pq.insert(new Node(initial, null));
 
+    MinPQ<Node> pqTwin = new MinPQ<>();
+    pqTwin.insert(new Node(initial.twin(), null));
+
     Node min = pq.delMin();
-    while (!min.board.isGoal()) {
+    Node minTwin = pqTwin.delMin();
+    while (!min.board.isGoal() && !minTwin.board.isGoal()) {
       for (Board board : min.board.neighbors()) {
         if (min.prev == null || !board.equals(min.prev.board)) {
           Node node = new Node(board, min);
@@ -44,9 +51,19 @@ public class Solver {
         }
       }
       min = pq.delMin();
+      // Twin
+      for (Board board : minTwin.board.neighbors()) {
+        if (minTwin.prev == null || !board.equals(minTwin.prev.board)) {
+          Node node = new Node(board, minTwin);
+          pqTwin.insert(node);
+        }
+      }
+      minTwin = pqTwin.delMin();
     }
 
-    solution = min;
+    if (min.board.isGoal()) {
+      solution = min;
+    }
   }
 
   // is the initial board solvable? (see below)

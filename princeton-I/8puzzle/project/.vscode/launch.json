@@ -15,7 +15,7 @@
       "name": "Solver",
       "request": "launch",
       "mainClass": "Solver",
-      "args": "puzzle50.txt"
+      "args": "puzzle4x4-unsolvable.txt"
     }
   ]
 }
