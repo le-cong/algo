@@ -13,16 +13,19 @@ public class Solver {
     final Board board;
     final Node prev;
     final int moves;
+    final int dist;
 
     Node(Board self, Node prev) {
       this.board = self;
       this.prev = prev;
+
       this.moves = prev == null ? 0 : prev.moves + 1;
+      this.dist = this.moves + board.manhattan();
     }
 
     @Override
     public int compareTo(Node that) {
-      return (this.board.manhattan() + this.moves) - (that.board.manhattan() + that.moves);
+      return this.dist - that.dist;
     }
 
   }

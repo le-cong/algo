@@ -137,7 +137,7 @@ public class Board {
 
     for (int dir = 0; dir < 4; dir++) {
       int[] dest = getPosAfterMove(orig, dir);
-      if (isPosValid(dest)) {
+      if (isPosValid(dest) && tiles[dest[0]][dest[1]] > 0) {
         moves.add(dest);
       }
     }
