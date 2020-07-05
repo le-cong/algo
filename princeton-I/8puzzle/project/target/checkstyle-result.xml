@@ -3,6 +3,6 @@
 <file name="Solver.java">
 </file>
 <file name="Board.java">
-<error line="92" column="26" severity="warning" message="Do not use the &apos;instanceof&apos; operator in this course. Use &apos;getClass()&apos; to compare classes." source="com.puppycrawl.tools.checkstyle.checks.coding.IllegalTokenCheck"/>
+<error line="96" column="26" severity="warning" message="Do not use the &apos;instanceof&apos; operator in this course. Use &apos;getClass()&apos; to compare classes." source="com.puppycrawl.tools.checkstyle.checks.coding.IllegalTokenCheck"/>
 </file>
 </checkstyle>

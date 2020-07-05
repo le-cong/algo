@@ -7,9 +7,11 @@ import edu.princeton.cs.algs4.StdRandom;
 public class Board {
 
   private final int[][] tiles;
+  private int hamming = -1;
   private int manhattan = -1;
-  private int[] twinOrig = null;
-  private int[] twinDest = null;
+  // private int[] twinOrig = null;
+  // private int[] twinDest = null;
+  private Board twin;
 
   // create a board from an n-by-n array of tiles,
   // where tiles[row][col] = tile at (row, col)
@@ -43,17 +45,19 @@ public class Board {
 
   // number of tiles out of place
   public int hamming() {
-    int hamming = 0;
-    int n = dimension();
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < n; j++) {
-        int cell = tiles[i][j];
-        if (cell == 0) {
-          continue;
-        }
+    if (hamming < 0) {
+      hamming = 0;
+      int n = dimension();
+      for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+          int cell = tiles[i][j];
+          if (cell == 0) {
+            continue;
+          }
 
-        if (cell - 1 != i * n + j) {
-          hamming++;
+          if (cell - 1 != i * n + j) {
+            hamming++;
+          }
         }
       }
     }
@@ -84,7 +88,7 @@ public class Board {
 
   // is this board the goal board?
   public boolean isGoal() {
-    return manhattan() == 0;
+    return hamming() == 0;
   }
 
   // does this board equal y?
@@ -186,22 +190,25 @@ public class Board {
 
   // a board that is obtained by exchanging any pair of tiles
   public Board twin() {
-    if (twinOrig == null) {
-      int n = dimension();
-      int i, j;
-      do {
-        i = StdRandom.uniform(n);
-        j = StdRandom.uniform(n);
-      } while (tiles[i][j] == 0);
-      twinOrig = new int[] { i, j };
-
-      List<int[]> swaps = getPossibleMoves(twinOrig);
-      int r = StdRandom.uniform(swaps.size());
-      twinDest = swaps.get(r);
+    if (twin != null) {
+      return twin;
     }
 
+    int n = dimension();
+    int i, j;
+    do {
+      i = StdRandom.uniform(n);
+      j = StdRandom.uniform(n);
+    } while (tiles[i][j] == 0);
+    int[] twinOrig = new int[] { i, j };
+
+    List<int[]> swaps = getPossibleMoves(twinOrig);
+    int r = StdRandom.uniform(swaps.size());
+    int[] twinDest = swaps.get(r);
+
     int[][] tilesCopy = getTilesAfterMove(twinOrig, twinDest);
-    return new Board(tilesCopy);
+    twin = new Board(tilesCopy);
+    return twin;
   }
 
   // unit testing (not graded)

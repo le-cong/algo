@@ -6,7 +6,6 @@ import edu.princeton.cs.algs4.Stopwatch;
 
 public class Solver {
 
-  private MinPQ<Node> pq;
   private Node solution;
 
   private class Node implements Comparable<Node> {
@@ -35,7 +34,7 @@ public class Solver {
       throw new IllegalArgumentException();
     }
 
-    pq = new MinPQ<>();
+    MinPQ<Node> pq = new MinPQ<>();
     pq.insert(new Node(initial, null));
 
     MinPQ<Node> pqTwin = new MinPQ<>();
