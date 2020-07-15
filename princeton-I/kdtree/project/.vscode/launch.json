@@ -1,0 +1,40 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "RangeSearchVisualizer",
+      "request": "launch",
+      "mainClass": "RangeSearchVisualizer",
+      "args": "input10.txt"
+    },
+    {
+      "type": "java",
+      "name": "NearestNeighborVisualizer",
+      "request": "launch",
+      "mainClass": "NearestNeighborVisualizer",
+      "args": "input10.txt"
+    },    
+    {
+      "type": "java",
+      "name": "KdTreeVisualizer",
+      "request": "launch",
+      "mainClass": "KdTreeVisualizer"
+    },    
+    {
+      "type": "java",
+      "name": "PointSET",
+      "request": "launch",
+      "mainClass": "PointSET"
+    },
+    {
+      "type": "java",
+      "name": "KdTree",
+      "request": "launch",
+      "mainClass": "KdTree"
+    }
+  ]
+}
