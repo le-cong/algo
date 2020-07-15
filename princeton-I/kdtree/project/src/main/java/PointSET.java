@@ -64,22 +64,18 @@ public class PointSET {
   }
 
   // a nearest neighbor in the set to point p; null if the set is empty
-  public Point2D nearest(Point2D p) {
-    if (p == null) {
+  public Point2D nearest(Point2D query) {
+    if (query == null) {
       throw new IllegalArgumentException();
     }
 
     Point2D nearest = null;
     double nearestDistance = Double.POSITIVE_INFINITY;
-    for (Point2D pTest : set) {
-      if (nearest != null) {
-        double distance = p.distanceSquaredTo(pTest);
-        if (distance < nearestDistance) {
-          nearest = pTest;
-          nearestDistance = distance;
-        }
-      } else {
-        nearest = pTest;
+    for (Point2D p : set) {
+      double distance = query.distanceSquaredTo(p);
+      if (distance < nearestDistance) {
+        nearest = p;
+        nearestDistance = distance;
       }
     }
 
@@ -88,6 +84,11 @@ public class PointSET {
 
   // unit testing of the methods (optional)
   public static void main(String[] args) {
-    System.out.println("hello");
+    PointSET set = new PointSET();
+    set.insert(new Point2D(1.0, 1.0));
+    set.insert(new Point2D(1.0, 0.0));
+    set.insert(new Point2D(0.0, 1.0));
+    Point2D nearest = set.nearest(new Point2D(1.0, 0.0));
+    System.out.println(nearest);
   }
 }

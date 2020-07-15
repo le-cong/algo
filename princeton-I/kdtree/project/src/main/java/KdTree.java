@@ -46,6 +46,10 @@ public class KdTree {
       return curr;
     }
 
+    if (p.equals(curr.value)) {
+      return curr;
+    }
+
     if (useX) {
       if (p.x() < curr.value.x()) {
         curr.left = insert(curr.left, p, !useX);
@@ -69,7 +73,35 @@ public class KdTree {
       throw new IllegalArgumentException();
     }
 
-    return false;
+    if (isEmpty()) {
+      return false;
+    }
+
+    return contains(root, p, true);
+  }
+
+  private boolean contains(Node curr, Point2D p, boolean useX) {
+    if (curr == null) {
+      return false;
+    }
+
+    if (curr.value.equals(p)) {
+      return true;
+    }
+
+    if (useX) {
+      if (p.x() < curr.value.x()) {
+        return contains(curr.left, p, !useX);
+      } else {
+        return contains(curr.right, p, !useX);
+      }
+    } else {
+      if (p.y() < curr.value.y()) {
+        return contains(curr.left, p, !useX);
+      } else {
+        return contains(curr.right, p, !useX);
+      }
+    }
   }
 
   // draw all points to standard draw
@@ -155,30 +187,57 @@ public class KdTree {
   }
 
   // a nearest neighbor in the set to point p; null if the set is empty
-  public Point2D nearest(Point2D p) {
-    if (p == null) {
+  public Point2D nearest(Point2D query) {
+    if (query == null) {
       throw new IllegalArgumentException();
     }
 
-    Point2D nearest = null;
-    // double nearestDistance = Double.POSITIVE_INFINITY;
-    // for (Point2D pTest : set) {
-    // if (nearest != null) {
-    // double distance = p.distanceSquaredTo(pTest);
-    // if (distance < nearestDistance) {
-    // nearest = pTest;
-    // nearestDistance = distance;
-    // }
-    // } else {
-    // nearest = pTest;
-    // }
-    // }
+    if (isEmpty()) {
+      return null;
+    }
+
+    Point2D nearest = root.value;
+    RectHV container = new RectHV(0, 0, 1, 1);
+    nearest = nearest(root, true, container, query, nearest);
+    return nearest;
+  }
+
+  private Point2D nearest(Node curr, boolean useX, RectHV container, Point2D query, Point2D nearest) {
+    if (curr == null) {
+      return nearest;
+    }
+
+    double nearestDistance = nearest.distanceSquaredTo(query);
+    double currDistance = curr.value.distanceSquaredTo(query);
+    if (currDistance < nearestDistance) {
+      nearest = curr.value;
+      nearestDistance = currDistance;
+    }
+
+    RectHV leftContainer = getContainer(curr, useX, true, container);
+    if (leftContainer.distanceSquaredTo(query) < nearestDistance) {
+      nearest = nearest(curr.left, !useX, leftContainer, query, nearest);
+      nearestDistance = nearest.distanceSquaredTo(query);
+    }
+
+    RectHV rightContainer = getContainer(curr, useX, false, container);
+    if (rightContainer.distanceSquaredTo(query) < nearestDistance) {
+      nearest = nearest(curr.right, !useX, rightContainer, query, nearest);
+    }
 
     return nearest;
   }
 
   // unit testing of the methods (optional)
   public static void main(String[] args) {
-    System.out.println("hello");
+    KdTree set = new KdTree();
+    set.insert(new Point2D(1.0, 1.0));
+    set.insert(new Point2D(1.0, 0.0));
+    set.insert(new Point2D(0.0, 1.0));
+    set.insert(new Point2D(0.0, 1.0));
+    System.out.println("size(should be 3)=" + set.size);
+    Point2D nearest = set.nearest(new Point2D(1.0, 0.0));
+    System.out.println("nearest(should be [1.0, 0.0]): " + nearest);
+    System.out.println("contain(should be true): " + set.contains(new Point2D(1.0, 0.0)));
   }
 }
