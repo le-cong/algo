@@ -230,52 +230,104 @@ public class KdTree {
       nearest.distance = currDistance;
     }
 
-    if (curr.left != null) {
+    boolean isLeftFirst = (useX && nearest.query.x() < curr.p.x()) || (!useX && nearest.query.y() < curr.p.y());
+    if (isLeftFirst) {
+      if (curr.left != null) {
 
-      RectHV leftContainer = getContainer(curr, useX, true, container);
-      double leftContainerDistance = leftContainer.distanceSquaredTo(nearest.query);
-      // // DEBUG -- START
-      // StdDraw.clear();
-      // StdDraw.setPenColor(StdDraw.BLACK);
-      // StdDraw.setPenRadius(0.02);
-      // nearest.query.draw();
-      // StdDraw.setPenColor(StdDraw.RED);
-      // StdDraw.setPenRadius(0.02);
-      // nearest.p.draw();
-      // StdDraw.setPenColor(StdDraw.GREEN);
-      // StdDraw.setPenRadius();
-      // leftContainer.draw();
-      // System.out.println("===============================");
-      // System.out.println("leftContainerDistance=" + leftContainerDistance);
-      // System.out.println("nearest.distance=" + nearest.distance);
-      // // DEBUG -- END
-      if (leftContainerDistance < nearest.distance) {
-        nearest(curr.left, !useX, leftContainer, nearest);
+        RectHV leftContainer = getContainer(curr, useX, true, container);
+        double leftContainerDistance = leftContainer.distanceSquaredTo(nearest.query);
+        // // DEBUG -- START
+        // StdDraw.clear();
+        // StdDraw.setPenColor(StdDraw.BLACK);
+        // StdDraw.setPenRadius(0.02);
+        // nearest.query.draw();
+        // StdDraw.setPenColor(StdDraw.RED);
+        // StdDraw.setPenRadius(0.02);
+        // nearest.p.draw();
+        // StdDraw.setPenColor(StdDraw.GREEN);
+        // StdDraw.setPenRadius();
+        // leftContainer.draw();
+        // System.out.println("===============================");
+        // System.out.println("leftContainerDistance=" + leftContainerDistance);
+        // System.out.println("nearest.distance=" + nearest.distance);
+        // // DEBUG -- END
+        if (leftContainerDistance < nearest.distance) {
+          nearest(curr.left, !useX, leftContainer, nearest);
+        }
+      }
+
+      if (curr.right != null) {
+        RectHV rightContainer = getContainer(curr, useX, false, container);
+        double rightContainerDistance = rightContainer.distanceSquaredTo(nearest.query);
+        // // DEBUG -- START
+        // StdDraw.clear();
+        // StdDraw.setPenColor(StdDraw.BLACK);
+        // StdDraw.setPenRadius(0.02);
+        // nearest.query.draw();
+        // StdDraw.setPenColor(StdDraw.RED);
+        // StdDraw.setPenRadius(0.02);
+        // nearest.p.draw();
+        // StdDraw.setPenColor(StdDraw.GREEN);
+        // StdDraw.setPenRadius();
+        // rightContainer.draw();
+        // System.out.println("===============================");
+        // System.out.println("rightContainerDistance=" + rightContainerDistance);
+        // System.out.println("nearest.distance=" + nearest.distance);
+        // // DEBUG -- END
+        if (rightContainerDistance < nearest.distance) {
+          nearest(curr.right, !useX, rightContainer, nearest);
+        }
+      }
+    } else {
+
+      if (curr.right != null) {
+        RectHV rightContainer = getContainer(curr, useX, false, container);
+        double rightContainerDistance = rightContainer.distanceSquaredTo(nearest.query);
+        // // DEBUG -- START
+        // StdDraw.clear();
+        // StdDraw.setPenColor(StdDraw.BLACK);
+        // StdDraw.setPenRadius(0.02);
+        // nearest.query.draw();
+        // StdDraw.setPenColor(StdDraw.RED);
+        // StdDraw.setPenRadius(0.02);
+        // nearest.p.draw();
+        // StdDraw.setPenColor(StdDraw.GREEN);
+        // StdDraw.setPenRadius();
+        // rightContainer.draw();
+        // System.out.println("===============================");
+        // System.out.println("rightContainerDistance=" + rightContainerDistance);
+        // System.out.println("nearest.distance=" + nearest.distance);
+        // // DEBUG -- END
+        if (rightContainerDistance < nearest.distance) {
+          nearest(curr.right, !useX, rightContainer, nearest);
+        }
+      }
+
+      if (curr.left != null) {
+
+        RectHV leftContainer = getContainer(curr, useX, true, container);
+        double leftContainerDistance = leftContainer.distanceSquaredTo(nearest.query);
+        // // DEBUG -- START
+        // StdDraw.clear();
+        // StdDraw.setPenColor(StdDraw.BLACK);
+        // StdDraw.setPenRadius(0.02);
+        // nearest.query.draw();
+        // StdDraw.setPenColor(StdDraw.RED);
+        // StdDraw.setPenRadius(0.02);
+        // nearest.p.draw();
+        // StdDraw.setPenColor(StdDraw.GREEN);
+        // StdDraw.setPenRadius();
+        // leftContainer.draw();
+        // System.out.println("===============================");
+        // System.out.println("leftContainerDistance=" + leftContainerDistance);
+        // System.out.println("nearest.distance=" + nearest.distance);
+        // // DEBUG -- END
+        if (leftContainerDistance < nearest.distance) {
+          nearest(curr.left, !useX, leftContainer, nearest);
+        }
       }
     }
 
-    if (curr.right != null) {
-      RectHV rightContainer = getContainer(curr, useX, false, container);
-      double rightContainerDistance = rightContainer.distanceSquaredTo(nearest.query);
-      // // DEBUG -- START
-      // StdDraw.clear();
-      // StdDraw.setPenColor(StdDraw.BLACK);
-      // StdDraw.setPenRadius(0.02);
-      // nearest.query.draw();
-      // StdDraw.setPenColor(StdDraw.RED);
-      // StdDraw.setPenRadius(0.02);
-      // nearest.p.draw();
-      // StdDraw.setPenColor(StdDraw.GREEN);
-      // StdDraw.setPenRadius();
-      // rightContainer.draw();
-      // System.out.println("===============================");
-      // System.out.println("rightContainerDistance=" + rightContainerDistance);
-      // System.out.println("nearest.distance=" + nearest.distance);
-      // // DEBUG -- END
-      if (rightContainerDistance < nearest.distance) {
-        nearest(curr.right, !useX, rightContainer, nearest);
-      }
-    }
   }
 
   // unit testing of the methods (optional)
