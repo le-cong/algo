@@ -7,9 +7,15 @@ import edu.princeton.cs.algs4.StdDraw;
 public class KdTree {
 
   private class Node {
-    Point2D value;
+    Point2D p;
     Node left;
     Node right;
+  }
+
+  private class NearestTest {
+    Point2D p;
+    Point2D query;
+    double distance;
   }
 
   private Node root = null;
@@ -41,23 +47,23 @@ public class KdTree {
   private Node insert(Node curr, Point2D p, boolean useX) {
     if (curr == null) {
       curr = new Node();
-      curr.value = p;
+      curr.p = p;
       size++;
       return curr;
     }
 
-    if (p.equals(curr.value)) {
+    if (p.equals(curr.p)) {
       return curr;
     }
 
     if (useX) {
-      if (p.x() < curr.value.x()) {
+      if (p.x() < curr.p.x()) {
         curr.left = insert(curr.left, p, !useX);
       } else {
         curr.right = insert(curr.right, p, !useX);
       }
     } else {
-      if (p.y() < curr.value.y()) {
+      if (p.y() < curr.p.y()) {
         curr.left = insert(curr.left, p, !useX);
       } else {
         curr.right = insert(curr.right, p, !useX);
@@ -85,18 +91,18 @@ public class KdTree {
       return false;
     }
 
-    if (curr.value.equals(p)) {
+    if (curr.p.equals(p)) {
       return true;
     }
 
     if (useX) {
-      if (p.x() < curr.value.x()) {
+      if (p.x() < curr.p.x()) {
         return contains(curr.left, p, !useX);
       } else {
         return contains(curr.right, p, !useX);
       }
     } else {
-      if (p.y() < curr.value.y()) {
+      if (p.y() < curr.p.y()) {
         return contains(curr.left, p, !useX);
       } else {
         return contains(curr.right, p, !useX);
@@ -118,15 +124,15 @@ public class KdTree {
 
     StdDraw.setPenColor(StdDraw.BLACK);
     StdDraw.setPenRadius(0.01);
-    StdDraw.point(curr.value.x(), curr.value.y());
+    StdDraw.point(curr.p.x(), curr.p.y());
     if (useX) {
       StdDraw.setPenColor(StdDraw.RED);
       StdDraw.setPenRadius();
-      StdDraw.line(curr.value.x(), container.ymin(), curr.value.x(), container.ymax());
+      StdDraw.line(curr.p.x(), container.ymin(), curr.p.x(), container.ymax());
     } else {
       StdDraw.setPenColor(StdDraw.BLUE);
       StdDraw.setPenRadius();
-      StdDraw.line(container.xmin(), curr.value.y(), container.xmax(), curr.value.y());
+      StdDraw.line(container.xmin(), curr.p.y(), container.xmax(), curr.p.y());
     }
     draw(curr.left, !useX, getContainer(curr, useX, true, container));
     draw(curr.right, !useX, getContainer(curr, useX, false, container));
@@ -152,18 +158,22 @@ public class KdTree {
       return;
     }
 
-    if (query.contains(curr.value)) {
-      inRange.add(curr.value);
+    if (query.contains(curr.p)) {
+      inRange.add(curr.p);
     }
 
-    RectHV leftContainer = getContainer(curr, useX, true, container);
-    if (query.intersects(leftContainer)) {
-      range(curr.left, !useX, leftContainer, query, inRange);
+    if (curr.left != null) {
+      RectHV leftContainer = getContainer(curr, useX, true, container);
+      if (query.intersects(leftContainer)) {
+        range(curr.left, !useX, leftContainer, query, inRange);
+      }
     }
 
-    RectHV rightContainer = getContainer(curr, useX, false, container);
-    if (query.intersects(rightContainer)) {
-      range(curr.right, !useX, rightContainer, query, inRange);
+    if (curr.right != null) {
+      RectHV rightContainer = getContainer(curr, useX, false, container);
+      if (query.intersects(rightContainer)) {
+        range(curr.right, !useX, rightContainer, query, inRange);
+      }
     }
   }
 
@@ -171,15 +181,15 @@ public class KdTree {
     RectHV container;
     if (useX) {
       if (isLeft) {
-        container = new RectHV(parentContainer.xmin(), parentContainer.ymin(), curr.value.x(), parentContainer.ymax());
+        container = new RectHV(parentContainer.xmin(), parentContainer.ymin(), curr.p.x(), parentContainer.ymax());
       } else {
-        container = new RectHV(curr.value.x(), parentContainer.ymin(), parentContainer.xmax(), parentContainer.ymax());
+        container = new RectHV(curr.p.x(), parentContainer.ymin(), parentContainer.xmax(), parentContainer.ymax());
       }
     } else {
       if (isLeft) {
-        container = new RectHV(parentContainer.xmin(), parentContainer.ymin(), parentContainer.xmax(), curr.value.y());
+        container = new RectHV(parentContainer.xmin(), parentContainer.ymin(), parentContainer.xmax(), curr.p.y());
       } else {
-        container = new RectHV(parentContainer.xmin(), curr.value.y(), parentContainer.xmax(), parentContainer.ymax());
+        container = new RectHV(parentContainer.xmin(), curr.p.y(), parentContainer.xmax(), parentContainer.ymax());
       }
     }
 
@@ -196,48 +206,90 @@ public class KdTree {
       return null;
     }
 
-    Point2D nearest = root.value;
+    NearestTest nearest = new NearestTest();
+    nearest.query = query;
+    nearest.p = null;
+    nearest.distance = Double.POSITIVE_INFINITY;
+
     RectHV container = new RectHV(0, 0, 1, 1);
-    nearest = nearest(root, true, container, query, nearest);
-    return nearest;
+
+    nearest(root, true, container, nearest);
+    return nearest.p;
   }
 
-  private Point2D nearest(Node curr, boolean useX, RectHV container, Point2D query, Point2D nearest) {
+  private void nearest(Node curr, boolean useX, RectHV container, NearestTest nearest) {
     if (curr == null) {
-      return nearest;
+      return;
     }
 
-    double nearestDistance = nearest.distanceSquaredTo(query);
-    double currDistance = curr.value.distanceSquaredTo(query);
-    if (currDistance < nearestDistance) {
-      nearest = curr.value;
-      nearestDistance = currDistance;
+    // System.out.println("traversing: " + curr.p);
+
+    double currDistance = curr.p.distanceSquaredTo(nearest.query);
+    if (currDistance < nearest.distance) {
+      nearest.p = curr.p;
+      nearest.distance = currDistance;
     }
 
-    RectHV leftContainer = getContainer(curr, useX, true, container);
-    if (leftContainer.distanceSquaredTo(query) < nearestDistance) {
-      nearest = nearest(curr.left, !useX, leftContainer, query, nearest);
-      nearestDistance = nearest.distanceSquaredTo(query);
+    if (curr.left != null) {
+
+      RectHV leftContainer = getContainer(curr, useX, true, container);
+      double leftContainerDistance = leftContainer.distanceSquaredTo(nearest.query);
+      // // DEBUG -- START
+      // StdDraw.clear();
+      // StdDraw.setPenColor(StdDraw.BLACK);
+      // StdDraw.setPenRadius(0.02);
+      // nearest.query.draw();
+      // StdDraw.setPenColor(StdDraw.RED);
+      // StdDraw.setPenRadius(0.02);
+      // nearest.p.draw();
+      // StdDraw.setPenColor(StdDraw.GREEN);
+      // StdDraw.setPenRadius();
+      // leftContainer.draw();
+      // System.out.println("===============================");
+      // System.out.println("leftContainerDistance=" + leftContainerDistance);
+      // System.out.println("nearest.distance=" + nearest.distance);
+      // // DEBUG -- END
+      if (leftContainerDistance < nearest.distance) {
+        nearest(curr.left, !useX, leftContainer, nearest);
+      }
     }
 
-    RectHV rightContainer = getContainer(curr, useX, false, container);
-    if (rightContainer.distanceSquaredTo(query) < nearestDistance) {
-      nearest = nearest(curr.right, !useX, rightContainer, query, nearest);
+    if (curr.right != null) {
+      RectHV rightContainer = getContainer(curr, useX, false, container);
+      double rightContainerDistance = rightContainer.distanceSquaredTo(nearest.query);
+      // // DEBUG -- START
+      // StdDraw.clear();
+      // StdDraw.setPenColor(StdDraw.BLACK);
+      // StdDraw.setPenRadius(0.02);
+      // nearest.query.draw();
+      // StdDraw.setPenColor(StdDraw.RED);
+      // StdDraw.setPenRadius(0.02);
+      // nearest.p.draw();
+      // StdDraw.setPenColor(StdDraw.GREEN);
+      // StdDraw.setPenRadius();
+      // rightContainer.draw();
+      // System.out.println("===============================");
+      // System.out.println("rightContainerDistance=" + rightContainerDistance);
+      // System.out.println("nearest.distance=" + nearest.distance);
+      // // DEBUG -- END
+      if (rightContainerDistance < nearest.distance) {
+        nearest(curr.right, !useX, rightContainer, nearest);
+      }
     }
-
-    return nearest;
   }
 
   // unit testing of the methods (optional)
   public static void main(String[] args) {
     KdTree set = new KdTree();
-    set.insert(new Point2D(1.0, 1.0));
-    set.insert(new Point2D(1.0, 0.0));
-    set.insert(new Point2D(0.0, 1.0));
-    set.insert(new Point2D(0.0, 1.0));
-    System.out.println("size(should be 3)=" + set.size);
-    Point2D nearest = set.nearest(new Point2D(1.0, 0.0));
-    System.out.println("nearest(should be [1.0, 0.0]): " + nearest);
-    System.out.println("contain(should be true): " + set.contains(new Point2D(1.0, 0.0)));
+    set.insert(new Point2D(0.7, 0.2));
+    set.insert(new Point2D(0.5, 0.4));
+    set.insert(new Point2D(0.2, 0.3));
+    set.insert(new Point2D(0.4, 0.7));
+    set.insert(new Point2D(0.9, 0.6));
+    set.draw();
+    Point2D query = new Point2D(0.59, 0.63);
+    query.draw();
+    Point2D nearest = set.nearest(query);
+    System.out.println("nearest(should be [0.4, 0.7]): " + nearest);
   }
 }
