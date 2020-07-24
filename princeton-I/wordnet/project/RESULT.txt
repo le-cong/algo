@@ -7,22 +7,22 @@ API:          PASSED
 
 Spotbugs:     PASSED
 PMD:          FAILED (9 warnings)
-Checkstyle:   PASSED
+Checkstyle:   FAILED (0 errors, 1 warning)
 
-Correctness:  20/36 tests passed
+Correctness:  28/36 tests passed
 Memory:       4/4 tests passed
-Timing:       21/27 tests passed
+Timing:       30/27 tests passed
 
-Aggregate score: 68.89%
+Aggregate score: 88.89%
 [Compilation: 5%, API: 5%, Spotbugs: 0%, PMD: 0%, Checkstyle: 0%, Correctness: 60%, Memory: 10%, Timing: 20%]
 
 ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
- 301 Jul 24 21:23 Outcast.java
-3.4K Jul 24 21:23 SAP.java
-4.1K Jul 24 21:23 WordNet.java
+ 301 Jul 24 23:01 Outcast.java
+3.6K Jul 24 23:01 SAP.java
+4.9K Jul 24 23:01 WordNet.java
 
 
 ********************************************************************************
@@ -61,7 +61,6 @@ Outcast:
 
 % spotbugs *.class
 *-----------------------------------------------------------
-H D DLS_DEAD_LOCAL_STORE DLS: Assigns a value to the local variable 'wn' but that value is never used.  At WordNet.java:[line 144]
 
 
 ================================================================
@@ -72,12 +71,12 @@ H D DLS_DEAD_LOCAL_STORE DLS: Assigns a value to the local variable 'wn' but tha
 Outcast.java:3: Avoid unused parameter variables, such as 'wordnet'. [UnusedFormalParameter]
 Outcast.java:13: The method body is empty. If this is your intent, document it with a comment. [UncommentedEmptyMethodBody]
 SAP.java:13: The private instance (or static) variable 'g' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
-WordNet.java:12: The private instance (or static) variable 'dict' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
-WordNet.java:13: The private instance (or static) variable 'dictName2Id' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
-WordNet.java:14: The private instance (or static) variable 'graph' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
-WordNet.java:15: The private instance (or static) variable 'root' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
-WordNet.java:78: The 'if' or 'else' clause appears to serve no purpose because its body is empty. [EmptyIfStmt]
-WordNet.java:144: Avoid unused local variables, such as 'wn'. [UnusedLocalVariable]
+WordNet.java:11: The private instance (or static) variable 'dict' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+WordNet.java:12: The private instance (or static) variable 'dictName2Id' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+WordNet.java:13: The private instance (or static) variable 'graph' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+WordNet.java:14: The private instance (or static) variable 'root' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+WordNet.java:15: The private instance (or static) variable 'sap' can be made 'final'; it is initialized only in the declaration or constructor. [ImmutableField]
+WordNet.java:84: The 'if' or 'else' clause appears to serve no purpose because its body is empty. [EmptyIfStmt]
 PMD ends with 9 warnings.
 
 
@@ -86,6 +85,8 @@ PMD ends with 9 warnings.
 
 % checkstyle *.java
 *-----------------------------------------------------------
+[WARN] WordNet.java:28:7: Use the primitive type 'int' instead of the wrapper type 'Integer'. [Wrapper]
+Checkstyle ends with 0 errors and 1 warning.
 
 % custom checkstyle checks for SAP.java
 *-----------------------------------------------------------
@@ -206,48 +207,13 @@ Test 14: check whether two SAP objects can be created at the same time
 
 Test 15: check whether SAP is immutable
   * digraph1.txt
-    - after adding edges (v, 0) to G
-    - v = 0, w = 3
-    - student length before = 2
-    - student length after  = 1
-
   * digraph2.txt
-    - after adding edges (v, 0) to G
-    - v = 0, w = 2
-    - student length before = 4
-    - student length after  = 1
-
   * digraph3.txt
-    - after adding edges (v, 0) to G
-    - v = 0, w = 1
-    - student length before = -1
-    - student length after  = 1
-
   * digraph4.txt
-    - after adding edges (v, 0) to G
-    - v = 0, w = 1
-    - student length before = 3
-    - student length after  = 1
-
   * digraph5.txt
-    - after adding edges (v, 0) to G
-    - v = 0, w = 1
-    - student length before = -1
-    - student length after  = 1
-
   * digraph6.txt
-    - after adding edges (v, 0) to G
-    - v = 0, w = 2
-    - student length before = 2
-    - student length after  = 1
-
   * digraph-ambiguous-ancestor.txt
-    - after adding edges (v, 0) to G
-    - v = 0, w = 2
-    - student length before = 2
-    - student length after  = 1
-
-==> FAILED
+==> passed
 
 Test 16: check length() and ancestor() with iterable arguments
   * 100 random subsets of 1 and 1 vertices in digraph-wordnet.txt
@@ -273,55 +239,15 @@ Test 18: check length() and ancestor() with invalid arguments
 
 Test 19: check iterable versions of length() and ancestor() with invalid arguments
   * G = digraph1.txt, v = { 0, 7, 9, 12 }, w = null
-    - throws the wrong exception when calling length() with invalid argument
-    - length() throws a java.lang.NullPointerException
-    - length() should throw a java.lang.IllegalArgumentException
-
-    - throws the wrong exception when calling ancestor() with invalid argument
-    - ancestor() throws a java.lang.NullPointerException
-    - ancestor() should throw a java.lang.IllegalArgumentException
-
   * G = digraph1.txt, v = null, w = { 1, 2, 4, 5, 10 }
-    - throws the wrong exception when calling length() with invalid argument
-    - length() throws a java.lang.NullPointerException
-    - length() should throw a java.lang.IllegalArgumentException
-
-    - throws the wrong exception when calling ancestor() with invalid argument
-    - ancestor() throws a java.lang.NullPointerException
-    - ancestor() should throw a java.lang.IllegalArgumentException
-
   * G = digraph1.txt, v = null, w = null
-    - throws the wrong exception when calling length() with invalid argument
-    - length() throws a java.lang.NullPointerException
-    - length() should throw a java.lang.IllegalArgumentException
-
-    - throws the wrong exception when calling ancestor() with invalid argument
-    - ancestor() throws a java.lang.NullPointerException
-    - ancestor() should throw a java.lang.IllegalArgumentException
-
   * G = digraph1.txt, v = { 0, 7, 9, 12, -1 }, w = { 1, 2, 4, 5, 10 }
   * G = digraph1.txt, v = { 0, 7, 9, 12 }, w = { 1, 2, -1, 4, 5, 10 }
   * G = digraph1.txt, v = { 13, 0, 7, 9, 12 }, w = { 1, 2, 4, 5, 10 }
   * G = digraph1.txt, v = { 0, 7, 9, 12 }, w = { 1, 2, 4, 5, 13, 10 }
   * G = digraph1.txt, v = { 0, null, 7, 9, 12 }, w = { 1, 2, 4, 5, 10 }
-    - throws the wrong exception when calling length() with invalid argument
-    - length() throws a java.lang.NullPointerException
-    - length() should throw a java.lang.IllegalArgumentException
-
-    - throws the wrong exception when calling ancestor() with invalid argument
-    - ancestor() throws a java.lang.NullPointerException
-    - ancestor() should throw a java.lang.IllegalArgumentException
-
   * G = digraph1.txt, v = { 0, 7, 9, 12 }, w = { 1, 2, 4, null, 5, 10 }
-    - throws the wrong exception when calling length() with invalid argument
-    - length() throws a java.lang.NullPointerException
-    - length() should throw a java.lang.IllegalArgumentException
-
-    - throws the wrong exception when calling ancestor() with invalid argument
-    - ancestor() throws a java.lang.NullPointerException
-    - ancestor() should throw a java.lang.IllegalArgumentException
-
-==> FAILED
+==> passed
 
 Test 20: random calls to both version of length() and ancestor(),
          with probabilities p1 and p2, respectively
@@ -332,7 +258,7 @@ Test 20: random calls to both version of length() and ancestor(),
 ==> passed
 
 
-Total: 18/20 tests passed!
+Total: 20/20 tests passed!
 
 
 ================================================================
@@ -346,327 +272,102 @@ Running 14 total tests.
 
 Test 1: check distance() with random noun pairs
   * 1000 pairs using synsets = synsets.txt; hypernyms = hypernyms.txt
-    - nounA = dictator
-    - nounB = permission
-    - student   distance() = -1
-    - reference distance() = 10
-    - failed on noun pair 1 of 1000
+    - nounA = Elymus_trachycaulos
+    - nounB = skyrocket
+    - student   distance() = 19
+    - reference distance() = 17
+    - failed on noun pair 2 of 1000
 
 ==> FAILED
 
 Test 2: check distance() with all noun pairs
   * synsets = synsets15.txt; hypernyms = hypernyms15Path.txt
-    - nounA = b
-    - nounB = a
-    - student   distance() = -1
-    - reference distance() = 1
-    - failed on noun pair 15
-
   * synsets = synsets15.txt; hypernyms = hypernyms15Tree.txt
-    - nounA = a
-    - nounB = b
-    - student   distance() = -1
-    - reference distance() = 1
-    - failed on noun pair 1
-
   * synsets = synsets6.txt; hypernyms = hypernyms6TwoAncestors.txt
-    - nounA = a
-    - nounB = b
-    - student   distance() = -1
-    - reference distance() = 1
-    - failed on noun pair 1
-
   * synsets = synsets11.txt; hypernyms = hypernyms11AmbiguousAncestor.txt
-    - nounA = a
-    - nounB = c
-    - student   distance() = 5
-    - reference distance() = 2
-    - failed on noun pair 2
-
   * synsets = synsets8.txt; hypernyms = hypernyms8ModTree.txt
-    - nounA = a
-    - nounB = b
-    - student   distance() = -1
-    - reference distance() = 1
-    - failed on noun pair 1
-
   * synsets = synsets8.txt; hypernyms = hypernyms8WrongBFS.txt
-    - nounA = a
-    - nounB = d
-    - student   distance() = 3
-    - reference distance() = 2
-    - failed on noun pair 3
-
   * synsets = synsets11.txt; hypernyms = hypernyms11ManyPathsOneAncestor.txt
-    - nounA = a
-    - nounB = g
-    - student   distance() = -1
-    - reference distance() = 3
-    - failed on noun pair 6
-
   * synsets = synsets8.txt; hypernyms = hypernyms8ManyAncestors.txt
-    - nounA = a
-    - nounB = c
-    - student   distance() = -1
-    - reference distance() = 2
-    - failed on noun pair 2
-
-==> FAILED
+==> passed
 
 Test 3: check distance() with random noun pairs
   * 1000 pairs using synsets = synsets100-subgraph.txt; hypernyms = hypernyms100-subgraph.txt
-    - nounA = human_gamma_globulin
-    - nounB = immunoglobulin_D
-    - reference distance() = 2
-    - reference sap()      = gamma_globulin human_gamma_globulin
-    - failed on noun pair 1 of 1000
-
-
-    java.lang.IllegalArgumentException
-
-    WordNet.distance(WordNet.java:103)
-    TestWordNet.checkRandomDistance(TestWordNet.java:39)
-    TestWordNet.test3(TestWordNet.java:149)
-    TestWordNet.main(TestWordNet.java:829)
+    - nounA = thing
+    - nounB = jimhickey
+    - student   distance() = 4
+    - reference distance() = 1
+    - failed on noun pair 691 of 1000
 
   * 1000 pairs using synsets = synsets500-subgraph.txt; hypernyms = hypernyms500-subgraph.txt
-    - nounA = glyceride
-    - nounB = thing
-    - reference distance() = 7
-    - reference sap()      = thing
-    - failed on noun pair 1 of 1000
-
-
-    java.lang.IllegalArgumentException
-
-    WordNet.distance(WordNet.java:103)
-    TestWordNet.checkRandomDistance(TestWordNet.java:39)
-    TestWordNet.test3(TestWordNet.java:150)
-    TestWordNet.main(TestWordNet.java:829)
+    - nounA = ski_wax
+    - nounB = safflower_oil
+    - student   distance() = 6
+    - reference distance() = 4
+    - failed on noun pair 71 of 1000
 
   * 1000 pairs using synsets = synsets1000-subgraph.txt; hypernyms = hypernyms1000-subgraph.txt
-    - nounA = autoantibody
-    - nounB = athar
-    - reference distance() = 7
-    - reference sap()      = macromolecule supermolecule
-    - failed on noun pair 1 of 1000
-
-
-    java.lang.IllegalArgumentException
-
-    WordNet.distance(WordNet.java:103)
-    TestWordNet.checkRandomDistance(TestWordNet.java:39)
-    TestWordNet.test3(TestWordNet.java:151)
-    TestWordNet.main(TestWordNet.java:829)
+    - nounA = caul
+    - nounB = pearl_sago
+    - student   distance() = 17
+    - reference distance() = 15
+    - failed on noun pair 99 of 1000
 
 ==> FAILED
 
 Test 4: check sap() with random noun pairs
   * 1000 pairs using synsets = synsets.txt; hypernyms = hypernyms.txt
-    - failed considering pair 1 of 1000
-    - nounA = quiz
-    - nounB = S/N
-    - reference distance() = 10
-    - reference sap()      = 'abstraction abstract_entity'
-
-
-    java.lang.IllegalArgumentException
-
-    WordNet.sap(WordNet.java:135)
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkRandomSAP(TestWordNet.java:229)
-    TestWordNet.test4(TestWordNet.java:304)
-    TestWordNet.main(TestWordNet.java:832)
+    - student sap() is not a shortest common ancestor
+    - nounA = bitter_orange
+    - nounB = handball
+    - student   sap() = 'entity'
+    - reference sap() = 'whole unit'
+    - student   distance() = 23
+    - reference distance() to 'whole unit' = 15
+    - actual distance to 'entity' = 18
+    - failed on noun pair 31 of 1000
 
 ==> FAILED
 
 Test 5: check sap() with all noun pairs
   * synsets = synsets15.txt; hypernyms = hypernyms15Path.txt
-    - nounA = a
-    - nounB = a
-    - reference distance() = 0
-    - reference sap()      = a
-    - failed on noun pair 1
-
-
-    java.lang.NullPointerException
-
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkAllSAP(TestWordNet.java:276)
-    TestWordNet.test5(TestWordNet.java:310)
-    TestWordNet.main(TestWordNet.java:835)
-
   * synsets = synsets15.txt; hypernyms = hypernyms15Tree.txt
-    - nounA = a
-    - nounB = a
-    - reference distance() = 0
-    - reference sap()      = a
-    - failed on noun pair 1
-
-
-    java.lang.NullPointerException
-
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkAllSAP(TestWordNet.java:276)
-    TestWordNet.test5(TestWordNet.java:311)
-    TestWordNet.main(TestWordNet.java:835)
-
   * synsets = synsets6.txt; hypernyms = hypernyms6TwoAncestors.txt
-    - nounA = a
-    - nounB = a
-    - reference distance() = 0
-    - reference sap()      = a
-    - failed on noun pair 1
-
-
-    java.lang.NullPointerException
-
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkAllSAP(TestWordNet.java:276)
-    TestWordNet.test5(TestWordNet.java:312)
-    TestWordNet.main(TestWordNet.java:835)
-
   * synsets = synsets11.txt; hypernyms = hypernyms11AmbiguousAncestor.txt
-    - nounA = a
-    - nounB = a
-    - reference distance() = 0
-    - reference sap()      = a
-    - failed on noun pair 1
-
-
-    java.lang.NullPointerException
-
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkAllSAP(TestWordNet.java:276)
-    TestWordNet.test5(TestWordNet.java:313)
-    TestWordNet.main(TestWordNet.java:835)
-
   * synsets = synsets8.txt; hypernyms = hypernyms8ModTree.txt
-    - nounA = a
-    - nounB = a
-    - reference distance() = 0
-    - reference sap()      = a
-    - failed on noun pair 1
-
-
-    java.lang.NullPointerException
-
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkAllSAP(TestWordNet.java:276)
-    TestWordNet.test5(TestWordNet.java:314)
-    TestWordNet.main(TestWordNet.java:835)
-
   * synsets = synsets8.txt; hypernyms = hypernyms8WrongBFS.txt
-    - nounA = a
-    - nounB = a
-    - reference distance() = 0
-    - reference sap()      = a
-    - failed on noun pair 1
-
-
-    java.lang.NullPointerException
-
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkAllSAP(TestWordNet.java:276)
-    TestWordNet.test5(TestWordNet.java:315)
-    TestWordNet.main(TestWordNet.java:835)
-
   * synsets = synsets11.txt; hypernyms = hypernyms11ManyPathsOneAncestor.txt
-    - nounA = a
-    - nounB = a
-    - reference distance() = 0
-    - reference sap()      = a
-    - failed on noun pair 1
-
-
-    java.lang.NullPointerException
-
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkAllSAP(TestWordNet.java:276)
-    TestWordNet.test5(TestWordNet.java:316)
-    TestWordNet.main(TestWordNet.java:835)
-
   * synsets = synsets8.txt; hypernyms = hypernyms8ManyAncestors.txt
-    - nounA = a
-    - nounB = a
-    - reference distance() = 0
-    - reference sap()      = a
-    - failed on noun pair 1
-
-
-    java.lang.NullPointerException
-
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkAllSAP(TestWordNet.java:276)
-    TestWordNet.test5(TestWordNet.java:317)
-    TestWordNet.main(TestWordNet.java:835)
-
-==> FAILED
+==> passed
 
 Test 6: check sap() with random noun pairs
   * 1000 pairs using synsets = synsets100-subgraph.txt; hypernyms = hypernyms100-subgraph.txt
-    - failed considering pair 1 of 1000
-    - nounA = ricin
-    - nounB = transaminase
-    - reference distance() = 6
-    - reference sap()      = 'protein'
-
-
-    java.lang.IllegalArgumentException
-
-    WordNet.sap(WordNet.java:135)
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkRandomSAP(TestWordNet.java:229)
-    TestWordNet.test6(TestWordNet.java:324)
-    TestWordNet.main(TestWordNet.java:838)
-
   * 1000 pairs using synsets = synsets500-subgraph.txt; hypernyms = hypernyms500-subgraph.txt
-    - failed considering pair 1 of 1000
-    - nounA = nerve_growth_factor
-    - nounB = medulla
-    - reference distance() = 6
-    - reference sap()      = 'macromolecule supermolecule'
-
-
-    java.lang.IllegalArgumentException
-
-    WordNet.sap(WordNet.java:135)
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkRandomSAP(TestWordNet.java:229)
-    TestWordNet.test6(TestWordNet.java:325)
-    TestWordNet.main(TestWordNet.java:838)
+    - student sap() is not a shortest common ancestor
+    - nounA = safflower_oil
+    - nounB = rapeseed_oil
+    - student   sap() = 'lipid lipide lipoid'
+    - reference sap() = 'oil'
+    - student   distance() = 6
+    - reference distance() to 'oil' = 2
+    - actual distance to 'lipid lipide lipoid' = 4
+    - failed on noun pair 219 of 1000
 
   * 1000 pairs using synsets = synsets1000-subgraph.txt; hypernyms = hypernyms1000-subgraph.txt
-    - failed considering pair 1 of 1000
-    - nounA = shark_oil
-    - nounB = bit
-    - reference distance() = 10
-    - reference sap()      = 'thing'
-
-
-    java.lang.IllegalArgumentException
-
-    WordNet.sap(WordNet.java:135)
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.checkRandomSAP(TestWordNet.java:229)
-    TestWordNet.test6(TestWordNet.java:326)
-    TestWordNet.main(TestWordNet.java:838)
+    - student sap() is not a shortest common ancestor
+    - nounA = os_sesamoideum
+    - nounB = tract
+    - student   sap() = 'body_part'
+    - reference sap() = 'animal_tissue'
+    - student   distance() = 7
+    - reference distance() to 'animal_tissue' = 6
+    - failed on noun pair 521 of 1000
 
 ==> FAILED
 
 Test 7: check whether WordNet is immutable
   * synsets = synsets.txt; hypernyms = hypernyms.txt
-    - failed on noun 0
-
-
-    java.lang.IllegalArgumentException
-
-    WordNet.sap(WordNet.java:135)
-    TestWordNet.checkImmutable(TestWordNet.java:350)
-    TestWordNet.test7(TestWordNet.java:391)
-    TestWordNet.main(TestWordNet.java:841)
-
-==> FAILED
+==> passed
 
 Test 8: check constructor when input is not a rooted DAG
   * synsets3.txt, hypernyms3InvalidTwoRoots.txt
@@ -678,39 +379,22 @@ Test 8: check constructor when input is not a rooted DAG
 
 Test 9: check isNoun()
   * synsets = synsets.txt; hypernyms = hypernyms.txt
-    - failed on trial 1
-    - noun               = anamorphosis
-    - student   isNoun() = false
-    - reference isNoun() = true
-
   * synsets = synsets15.txt; hypernyms = hypernyms15Path.txt
   * synsets = synsets8.txt; hypernyms = hypernyms8ModTree.txt
-==> FAILED
+==> passed
 
 Test 10: check nouns()
   * synsets = synsets.txt; hypernyms = hypernyms.txt
-    - number of entries in student   solution: 82192
-    - number of entries in reference solution: 119188
-    - 45754 extra entries in student solution, including:
-      'zymosis zymolysis fermentation fermenting ferment'
-
-    - 82750 missing entries in student solution, including:
-      'zymurgy'
-
   * synsets = synsets15.txt; hypernyms = hypernyms15Path.txt
   * synsets = synsets8.txt; hypernyms = hypernyms8ModTree.txt
-==> FAILED
+==> passed
 
 Test 11: check whether two WordNet objects can be created at the same time
   * synsets1 = synsets15.txt; hypernyms1 = hypernyms15Tree.txt
     synsets2 = synsets15.txt; hypernyms2 = hypernyms15Path.txt
   * synsets1 = synsets.txt; hypernyms1 = hypernyms.txt
     synsets2 = synsets15.txt; hypernyms2 = hypernyms15Path.txt
-    - noun               = anamorphosis
-    - student1   isNoun() = false
-    - reference1 isNoun() = true
-
-==> FAILED
+==> passed
 
 Test 12: call distance() and sap() with invalid arguments
   * synsets15.txt, hypernyms15Tree.txt, nounA = "x", nounB = "b"
@@ -734,40 +418,47 @@ Test 13: call isNoun() with a null argument
 Test 14: random calls to isNoun(), distance(), and sap(), with
          probabilities p1, p2, and p3, respectively
   * 100 random calls (p1 = 0.5, p2 = 0.5, p3 = 0.0)
-    - failed on call 1 to isNoun()
-    - word               = a
-    - student   isNoun() = false
-    - reference isNoun() = true
+    - failed on call 17 to distance()
+    - nounA = gueridon
+    - nounB = scout
+    - student   distance() = 14
+    - reference distance() = 11
 
   * 100 random calls (p1 = 0.5, p2 = 0.0, p3 = 0.5)
-    - failed on call 1 to isNoun()
-    - word               = Demotic
-    - student   isNoun() = false
-    - reference isNoun() = true
+    - student sap() is not a shortest common ancestor
+    - nounA = Patwin
+    - nounB = death_house
+    - student   sap() = 'entity'
+    - reference sap() = 'whole unit'
+    - student   distance() = 17
+    - reference distance() to 'whole unit' = 12
+    - actual distance to 'entity' = 15
+    - failed on noun pair 10 of 100
 
+    - failed on call 10 to sap()
   * 100 random calls (p1 = 0.0, p2 = 0.5, p3 = 0.5)
+    - student sap() is not a shortest common ancestor
+    - nounA = patrikin
+    - nounB = sharpshooter
+    - student   sap() = 'whole unit'
+    - reference sap() = 'person individual someone somebody mortal soul'
+    - student   distance() = 14
+    - reference distance() to 'person individual someone somebody mortal soul' = 5
+    - actual distance to 'whole unit' = 11
+    - failed on noun pair 18 of 100
 
-    java.lang.IllegalArgumentException
-
-    WordNet.distance(WordNet.java:103)
-    TestWordNet.random(TestWordNet.java:747)
-    TestWordNet.test14(TestWordNet.java:785)
-    TestWordNet.main(TestWordNet.java:862)
-
+    - failed on call 18 to sap()
   * 100 random calls (p1 = 0.2, p2 = 0.4, p3 = 0.4)
-
-    java.lang.IllegalArgumentException
-
-    WordNet.sap(WordNet.java:135)
-    TestWordNet.checkOneRandomSAP(TestWordNet.java:157)
-    TestWordNet.random(TestWordNet.java:764)
-    TestWordNet.test14(TestWordNet.java:786)
-    TestWordNet.main(TestWordNet.java:862)
+    - failed on call 3 to distance()
+    - nounA = subfamily_Cabombaceae
+    - nounB = cord
+    - student   distance() = 16
+    - reference distance() = 12
 
 ==> FAILED
 
 
-Total: 2/14 tests passed!
+Total: 8/14 tests passed!
 
 
 ================================================================
@@ -978,9 +669,9 @@ Test 1a: check memory of WordNet object
   * synsets = synsets1000-subgraph.txt; hypernyms = hypernyms1000-subgraph.txt
     - number of vertices in digraph = 1000
     - number of edges    in digraph = 1008
-    - student   memory              = 349232 bytes
+    - student   memory              = 553704 bytes
     - reference memory              = 1441648 bytes
-    - student / reference ratio     = 0.2
+    - student / reference ratio     = 0.4
     - maximum allowed rato          = 2.0
 
 ==> passed
@@ -989,9 +680,9 @@ Test 1b: check memory of WordNet object
   * synsets = synsets5000-subgraph.txt; hypernyms = hypernyms5000-subgraph.txt
     - number of vertices in digraph = 5000
     - number of edges    in digraph = 5059
-    - student   memory              = 1740576 bytes
-    - reference memory              = 7042632 bytes
-    - student / reference ratio     = 0.2
+    - student   memory              = 2725048 bytes
+    - reference memory              = 7042608 bytes
+    - student / reference ratio     = 0.4
     - maximum allowed rato          = 2.0
 
 ==> passed
@@ -1000,9 +691,9 @@ Test 1c: check memory of WordNet object
   * synsets = synsets10000-subgraph.txt; hypernyms = hypernyms10000-subgraph.txt
     - number of vertices in digraph = 10000
     - number of edges    in digraph = 10087
-    - student   memory              = 3568864 bytes
-    - reference memory              = 16173480 bytes
-    - student / reference ratio     = 0.2
+    - student   memory              = 6097128 bytes
+    - reference memory              = 16173472 bytes
+    - student / reference ratio     = 0.4
     - maximum allowed rato          = 2.0
 
 ==> passed
@@ -1024,15 +715,15 @@ Running 14 total tests.
 
 Test 1: time SAP constructor
    *  digraph-wordnet.txt
-      -  student solution time =  0.00 seconds
+      -  student solution time =  0.01 seconds
       -  maximum allowed  time =  1.00 seconds
 ==> passed
 
 Test 2a-c: time length() and ancestor() with random pairs of vertices
   *  digraph-wordnet.txt
-     -  reference solution calls per second: 1145867.00
-     -  student   solution calls per second:  558983.00
-     -  reference / student ratio:                 2.05
+     -  reference solution calls per second:  887116.00
+     -  student   solution calls per second:  548053.00
+     -  reference / student ratio:                 1.62
 
 => passed      student <= 50000x reference
 => passed      student <= 10000x reference
@@ -1040,12 +731,13 @@ Test 2a-c: time length() and ancestor() with random pairs of vertices
 => passed      student <=  1000x reference
 => BONUS       student <=   100x reference
 => BONUS       student <=    10x reference
+=> BONUS       student <=     2x reference
 
 Test 3a-c: time length() and ancestor() with random subsets of 5 vertices
   *  digraph-wordnet.txt
-     -  reference solution calls per second:  318470.00
-     -  student   solution calls per second:   31937.00
-     -  reference / student ratio:                 9.97
+     -  reference solution calls per second:  282661.00
+     -  student   solution calls per second:   32524.00
+     -  reference / student ratio:                 8.69
 
 => passed      student <= 10000x reference
 => passed      student <=  5000x reference
@@ -1055,9 +747,9 @@ Test 3a-c: time length() and ancestor() with random subsets of 5 vertices
 
 Test 4a-c: time length() and ancestor() with random subsets of 100 vertices
   *  digraph-wordnet.txt
-     -  reference solution calls per second:   20045.00
-     -  student   solution calls per second:      90.00
-     -  reference / student ratio:               222.72
+     -  reference solution calls per second:   17525.00
+     -  student   solution calls per second:      94.00
+     -  reference / student ratio:               186.44
 
 => passed      student <= 10000x reference
 => passed      student <=  5000x reference
@@ -1069,13 +761,13 @@ Test 5: Time 10 calls to length() and ancestor() on random path graphs
 
              V  seconds
         ---------------
-         16384     0.05
-         32768     0.15
-         65536     0.24
+         16384     0.07
+         32768     0.20
+         65536     0.40
 ==> passed
 
 
-Total: 17/14 tests passed!
+Total: 18/14 tests passed!
 
 
 ================================================================
@@ -1096,20 +788,17 @@ Test 1: check that exactly two In object created
 
 Test 2: count number of SAP operations when constructing a WordNet object
         and calling distance() and sap() three times each
+  * calls to constructor = 1
+  * calls to length()    = 3
+  * calls to ancestor()  = 6
 
-    java.lang.IllegalArgumentException
-
-    WordNet.distance(WordNet.java:103)
-    TimeWordNet.test2(TimeWordNet.java:165)
-    TimeWordNet.main(TimeWordNet.java:497)
-
-==> FAILED
+==> passed
 
 Test 3: count Digraph operations during WordNet constructor
   * synsets = synsets.txt; hypernyms = hypernyms.txt
   * number of synsets    = 82192
   * number of hypernyms  = 84505
-  * calls to constructor = 1
+  * calls to constructor = 2
   * calls to addEdge()   = 84505
   * calls to adj()       = 82192
   * calls to outdegree() = 82192
@@ -1121,42 +810,43 @@ Test 3: count Digraph operations during WordNet constructor
 
 Test 4: count Digraph operations during 1000 calls each
         to distance() and sap()
+  * synsets = synsets.txt; hypernyms = hypernyms.txt
+  * calls to constructor = 0
+  * calls to addEdge()   = 0
+  * calls to adj()       = 41426
+  * calls to reverse()   = 0
+  * calls to toString()  = 0
 
-    java.lang.IllegalArgumentException
-
-    WordNet.distance(WordNet.java:103)
-    TimeWordNet.test4(TimeWordNet.java:327)
-    TimeWordNet.main(TimeWordNet.java:503)
-
-==> FAILED
+==> passed
 
 Test 5: time WordNet constructor
   * synsets = synsets.txt; hypernyms = hypernyms.txt
-    - student constructor time =  0.21 seconds
+    - student constructor time =  0.26 seconds
     - maximum allowed     time = 10.00 seconds
 
 ==> passed
 
 Test 6a-e: time sap() and distance() with random nouns
+  * synsets = synsets.txt; hypernyms = hypernyms.txt
+    - reference solution calls per second:  303012.25
+    - student   solution calls per second:  329626.75
+    - reference / student ratio:                 0.92
 
-    java.lang.IllegalArgumentException
-
-    WordNet.distance(WordNet.java:103)
-    TimeWordNet.callsPerSecond(TimeWordNet.java:76)
-    TimeWordNet.test6(TimeWordNet.java:416)
-    TimeWordNet.main(TimeWordNet.java:509)
-
-==> FAILED
+=> passed    student <= 10000x reference
+=> passed    student <=  1000x reference
+=> passed    student <=   100x reference
+=> passed    student <=    10x reference
+=> passed    student <=     5x reference
 
 Test 7: time isNoun() with random nouns
   * synsets = synsets.txt; hypernyms = hypernyms.txt
-    - reference solution calls per second: 1525383.00
-    - student   solution calls per second:    1622.00
-    - reference / student ratio:               940.43
+    - reference solution calls per second: 1242899.00
+    - student   solution calls per second: 1040752.00
+    - reference / student ratio:                 1.19
     - allowed ratio:                             4.00
-==> FAILED
+==> passed
 
-Total: 3/11 tests passed!
+Total: 11/11 tests passed!
 
 
 ================================================================
@@ -1223,8 +913,5 @@ Total: 1/2 tests passed!
 
 
 ================================================================
-
-
-
 
 

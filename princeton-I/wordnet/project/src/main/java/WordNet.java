@@ -5,7 +5,6 @@ import java.util.Set;
 
 import edu.princeton.cs.algs4.Digraph;
 import edu.princeton.cs.algs4.In;
-import edu.princeton.cs.algs4.Queue;
 
 public class WordNet {
 
@@ -13,6 +12,7 @@ public class WordNet {
   private Map<String, Integer> dictName2Id = new HashMap<>();
   private Digraph graph;
   private int root = -1;
+  private SAP sap;
 
   // constructor takes the name of the two input files
   public WordNet(String synsets, String hypernyms) {
@@ -25,8 +25,13 @@ public class WordNet {
     while (!synsetsInput.isEmpty()) {
       String line = synsetsInput.readLine();
       String[] lineSplits = line.split(",");
-      dict.put(Integer.valueOf(lineSplits[0]), lineSplits[1]);
-      dictName2Id.put(lineSplits[1], Integer.valueOf(lineSplits[0]));
+      Integer synsetId = Integer.valueOf(lineSplits[0]);
+      String synsetContents = lineSplits[1];
+      dict.put(synsetId, synsetContents);
+      String[] nouns = synsetContents.split(" ");
+      for (String noun : nouns) {
+        dictName2Id.put(noun, synsetId);
+      }
       // cnt++;
     }
     // System.out.println("size of synsets="+cnt);
@@ -68,6 +73,7 @@ public class WordNet {
       }
     }
 
+    sap = new SAP(graph);
   }
 
   private void checkCycle(int v, int origin, Set<Integer> hist) {
@@ -89,12 +95,12 @@ public class WordNet {
 
   // returns all WordNet nouns
   public Iterable<String> nouns() {
-    return dict.values();
+    return dictName2Id.keySet();
   }
 
   // is the word a WordNet noun?
   public boolean isNoun(String word) {
-    return dict.containsValue(word);
+    return dictName2Id.containsKey(word);
   }
 
   // distance between nounA and nounB (defined below)
@@ -105,26 +111,8 @@ public class WordNet {
 
     int v = dictName2Id.get(nounA);
     int w = dictName2Id.get(nounB);
-    Map<Integer, Integer> hist = new HashMap<>();
-    Queue<Integer> q = new Queue<>();
-    q.enqueue(v);
-    hist.put(v, 0);
 
-    int distance = -1;
-    while (!q.isEmpty()) {
-      int u = q.dequeue();
-      int d = hist.get(u);
-      for (int adj : graph.adj(u)) {
-        if (adj == w) {
-          distance = d + 1;
-          break;
-        } else {
-          q.enqueue(adj);
-          hist.put(adj, d + 1);
-        }
-      }
-    }
-    return distance;
+    return sap.length(v, w);
   }
 
   // a synset (second field of synsets.txt) that is the common ancestor of nounA
@@ -135,13 +123,36 @@ public class WordNet {
       throw new IllegalArgumentException();
     }
 
-    return null;
+    int v = dictName2Id.get(nounA);
+    int w = dictName2Id.get(nounB);
+
+    int ancestor = sap.ancestor(v, w);
+    return dict.get(ancestor);
   }
 
   // do unit testing of this class
   public static void main(String[] args) {
-    // WordNet wn = new WordNet("synsets6.txt", "hypernyms6TwoAncestors.txt");
-    WordNet wn = new WordNet("synsets3.txt", "hypernyms3InvalidCycle.txt");
+    // String synsetsFilename = "synsets.txt";
+    // String hypernymsFilename = "hypernyms.txt";
+    // String nounA = "dictator";
+    // String nounB = "permission";
+    String synsetsFilename = "synsets100-subgraph.txt";
+    String hypernymsFilename = "hypernyms100-subgraph.txt";
+    String nounA = "human_gamma_globulin";
+    String nounB = "immunoglobulin_D";
+
+    System.out.println("============== Params ================");
+    System.out.println("synsetsFilename=" + synsetsFilename);
+    System.out.println("hypernymsFilename=" + hypernymsFilename);
+    System.out.println("nounA=" + nounA);
+    System.out.println("nounB=" + nounB);
+    System.out.println("============== Results ================");
+    WordNet wn = new WordNet(synsetsFilename, hypernymsFilename);
+    System.out.println("distance=" + wn.distance(nounA, nounB));
+    System.out.println("sap=" + wn.sap(nounA, nounB));
+    // WordNet wn = new WordNet("synsets15.txt", "hypernyms15Path.txt");
+    // System.out.println("distance="+wn.distance("b", "a"));
+    // System.out.println("sap="+wn.sap("b", "a"));
 
   }
 }

@@ -14,7 +14,7 @@ public class SAP {
 
   // constructor takes a digraph (not necessarily a DAG)
   public SAP(Digraph G) {
-    this.g = G;
+    this.g = new Digraph(G);
   }
 
   // length of shortest ancestral path between v and w; -1 if no such path
@@ -97,10 +97,17 @@ public class SAP {
 
   private int[] findSapForGroups(Iterable<Integer> v, Iterable<Integer> w) {
 
+    if (v == null || w == null) {
+      throw new IllegalArgumentException();
+    }
+
     int minAncestor = -1;
     int minDist = -1;
-    for (int vertexV : v) {
-      for (int vertexW : w) {
+    for (Integer vertexV : v) {
+      for (Integer vertexW : w) {
+        if (vertexV == null || vertexW == null) {
+          throw new IllegalArgumentException();
+        }
         int[] sap = findSap(vertexV, vertexW);
 
         int dist = sap[1];

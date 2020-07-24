@@ -3,5 +3,6 @@
 <file name="SAP.java">
 </file>
 <file name="WordNet.java">
+<error line="28" column="7" severity="warning" message="Use the primitive type &apos;int&apos; instead of the wrapper type &apos;Integer&apos;." source="Wrapper"/>
 </file>
 </checkstyle>
