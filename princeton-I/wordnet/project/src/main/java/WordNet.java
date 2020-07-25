@@ -9,7 +9,7 @@ import edu.princeton.cs.algs4.In;
 public class WordNet {
 
   private Map<Integer, String> dict = new HashMap<>();
-  private Map<String, Integer> dictName2Id = new HashMap<>();
+  private Map<String, Set<Integer>> dictName2Ids = new HashMap<>();
   private Digraph graph;
   private int root = -1;
   private SAP sap;
@@ -30,7 +30,12 @@ public class WordNet {
       dict.put(synsetId, synsetContents);
       String[] nouns = synsetContents.split(" ");
       for (String noun : nouns) {
-        dictName2Id.put(noun, synsetId);
+        Set<Integer> ids = dictName2Ids.get(noun);
+        if (ids == null) {
+          ids = new HashSet<>();
+          dictName2Ids.put(noun, ids);
+        }
+        ids.add(synsetId);
       }
       // cnt++;
     }
@@ -95,12 +100,15 @@ public class WordNet {
 
   // returns all WordNet nouns
   public Iterable<String> nouns() {
-    return dictName2Id.keySet();
+    return dictName2Ids.keySet();
   }
 
   // is the word a WordNet noun?
   public boolean isNoun(String word) {
-    return dictName2Id.containsKey(word);
+    if (word == null) {
+      throw new IllegalArgumentException();
+    }
+    return dictName2Ids.containsKey(word);
   }
 
   // distance between nounA and nounB (defined below)
@@ -109,8 +117,8 @@ public class WordNet {
       throw new IllegalArgumentException();
     }
 
-    int v = dictName2Id.get(nounA);
-    int w = dictName2Id.get(nounB);
+    Set<Integer> v = dictName2Ids.get(nounA);
+    Set<Integer> w = dictName2Ids.get(nounB);
 
     return sap.length(v, w);
   }
@@ -123,8 +131,8 @@ public class WordNet {
       throw new IllegalArgumentException();
     }
 
-    int v = dictName2Id.get(nounA);
-    int w = dictName2Id.get(nounB);
+    Set<Integer> v = dictName2Ids.get(nounA);
+    Set<Integer> w = dictName2Ids.get(nounB);
 
     int ancestor = sap.ancestor(v, w);
     return dict.get(ancestor);
@@ -132,14 +140,14 @@ public class WordNet {
 
   // do unit testing of this class
   public static void main(String[] args) {
-    // String synsetsFilename = "synsets.txt";
-    // String hypernymsFilename = "hypernyms.txt";
-    // String nounA = "dictator";
-    // String nounB = "permission";
-    String synsetsFilename = "synsets100-subgraph.txt";
-    String hypernymsFilename = "hypernyms100-subgraph.txt";
-    String nounA = "human_gamma_globulin";
-    String nounB = "immunoglobulin_D";
+    String synsetsFilename = "synsets.txt";
+    String hypernymsFilename = "hypernyms.txt";
+    String nounA = "Elymus_trachycaulos";
+    String nounB = nounA;//"skyrocket";
+    // String synsetsFilename = "synsets100-subgraph.txt";
+    // String hypernymsFilename = "hypernyms100-subgraph.txt";
+    // String nounA = "thing";
+    // String nounB = "jimhickey";
 
     System.out.println("============== Params ================");
     System.out.println("synsetsFilename=" + synsetsFilename);

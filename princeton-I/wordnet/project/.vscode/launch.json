@@ -15,6 +15,12 @@
       "name": "SAP",
       "request": "launch",
       "mainClass": "SAP"
+    },
+    {
+      "type": "java",
+      "name": "Outcast",
+      "request": "launch",
+      "mainClass": "Outcast"
     }
   ]
 }

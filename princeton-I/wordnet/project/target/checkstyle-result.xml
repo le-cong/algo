@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="8.31">
-<file name="SAP.java">
+<file name="Outcast.java">
+<error line="1" column="8" severity="warning" message="Unused import statement for &apos;edu.princeton.cs.algs4.In&apos;." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 </file>
 <file name="WordNet.java">
 <error line="28" column="7" severity="warning" message="Use the primitive type &apos;int&apos; instead of the wrapper type &apos;Integer&apos;." source="Wrapper"/>
+<error line="146" column="25" severity="warning" message="&apos;;&apos; is not followed by whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAfterCheck"/>
 </file>
 </checkstyle>
